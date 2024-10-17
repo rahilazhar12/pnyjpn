@@ -15,7 +15,7 @@ import { pink, grey } from '@mui/material/colors'; // Added grey for more neutra
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import CryptoJS from 'crypto-js';  // Include this if you're using npm
-
+import userloginbg from '../../assets/img/backgrounds/userlogin.jpg'
 // Create a custom theme with pink color
 const theme = createTheme({
   palette: {
@@ -26,7 +26,7 @@ const theme = createTheme({
 // Custom styled Box component for responsiveness and background image
 const StyledBox = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
-  backgroundImage: 'url(src/assets/img/backgrounds/userlogin.jpg)', // Replace with your image URL
+  backgroundImage: `url(${userloginbg})`, // Replace with your image URL
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   display: 'flex',

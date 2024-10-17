@@ -6,6 +6,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import userbgimage from '../../assets/img/backgrounds/userbg.jpg'
 
 // Custom pink theme
 const theme = createTheme({
@@ -110,7 +111,7 @@ export default function StudentRegistrationForm() {
           justifyContent: 'center',
           height: '100vh',
           padding: isMobile ? 2 : 0, // Add padding on mobile for better layout
-          backgroundImage: 'url(src/assets/img/backgrounds/userbg.jpg)', // Add your background image URL here
+          backgroundImage: `url(${userbgimage})`, // Add your background image URL here
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}

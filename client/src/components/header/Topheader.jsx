@@ -19,7 +19,7 @@ const Topheader = () => {
 
 
   const Handlelogout = () => {
-    fetch('http://localhost:8000/api/v1/company/companies-logout', {
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/company/companies-logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
