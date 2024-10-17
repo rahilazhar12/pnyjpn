@@ -1,5 +1,5 @@
 import React , {useEffect} from "react";
-import './home.css'
+import './Home.css'
 import Featured from "./Featured";
 
 
