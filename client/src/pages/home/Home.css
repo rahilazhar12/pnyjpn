@@ -1,0 +1,57 @@
+.border-btn2 {
+  border: 1px solid #8b92dd;
+  color: #8b92dd;
+  font: "Muli", sans-serif;
+  background: none;
+  padding: 19px 69px;
+  margin: 0px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+  border-radius: 5px;
+  position: relative;
+  transition: color 0.4s linear;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+@media (max-width: 767px) {
+  .border-btn2 {
+    padding: 19px 30px;
+  }
+}
+
+.border-btn2::before {
+  border: 1px solid transparent;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 101%;
+  height: 101%;
+  background: #8b92dd;
+  z-index: -1;
+  transition: transform 0.5s;
+  transition-timing-function: ease;
+  transform-origin: 0 0;
+  transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+  transform: scaleY(0);
+  border-radius: 0px;
+}
+.border-btn2:hover::before {
+  transform: scaleY(1);
+  color: rgb(233, 4, 4);
+  order: 2px solid transparent;
+}
+
+#scrollUp:hover {
+  color: #fff;
+}
+
+.single-services:hover {
+  box-shadow: 0px 10px 30px 0px rgba(133, 66, 189, 0.1);
+}

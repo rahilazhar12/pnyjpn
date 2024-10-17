@@ -1,0 +1,129 @@
+const Company = require('../models/Companymodel'); // Assuming your model file is named CompanyModel.js
+const { Hashedpassword, comparePassword } = require('../helpers/useAuth')
+const generateTokenAndSetCookie = require('../helpers/generatetoken')
+const jwt = require('jsonwebtoken')
+
+// Post a new company
+const CreateCompany = async (req, res) => {
+    const { name, ntnnumber, email, password, personincontact, city, website, facebook, linkedin, cnic, role } = req.body;
+
+    if (!name || !ntnnumber || !email || !personincontact || !city || !website || !facebook || !linkedin || !cnic) {
+        return res.status(201).json({ message: "Fill all the fields" });
+    }
+
+    const checkemail = await Company.findOne({ email })
+
+    if (checkemail) {
+        return res.status(400).send({ message: "Email is Already Registered" })
+    }
+
+    const hash = await Hashedpassword(password)
+    try {
+        const newCompany = new Company({
+            name,
+            ntnnumber,
+            email,
+            personincontact,
+            city,
+            website,
+            facebook,
+            linkedin,
+            cnic,
+            role,
+            password: hash
+        });
+
+        await newCompany.save();
+        // Change the response message here
+        res.status(201).json({ message: "Your request for approval has been successfully submitted to the admin." });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+
+const LoginCompany = async (req, res) => {
+    const { email, password } = req.body;
+
+    // Check if both email and password are provided
+    if (!email || !password) {
+        return res.status(400).json({ message: "Please provide email and password" });
+    }
+
+    try {
+        // Find the company by email
+        const company = await Company.findOne({ email });
+
+        if (!company) {
+            return res.status(404).json({ message: "Company not found" });
+        }
+
+        // Check if the company is approved
+        if (!company.isApproved) {
+            return res.status(403).json({ message: "Company not approved" });
+        }
+
+        // Compare the password with the hashed password stored in the database
+        const isPasswordValid = await comparePassword(password, company.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: "Invalid credentials" });
+        }
+
+        // Generate JWT with company ID as payload
+        generateTokenAndSetCookie(company._id, company.name, res); // Capture the token
+        // Send the token and company ID as response
+        res.status(200).json({
+            message: "Login successful",
+            role: company.role
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+
+const Logoutcompany = (req, res) => {
+    try {
+        res.cookie("jwt", "", { maxAge: 0 });
+        res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+        console.log("Error in logout controller", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+
+
+
+const approvecompanyrequest = async (req, res) => {
+    const { status } = req.body; // Assuming 'status' can be 'approved' or 'rejected'
+
+    try {
+        const company = await Company.findById(req.params.id);
+
+        if (!company) {
+            return res.status(404).json({ message: "Company not found." });
+        }
+
+        if (status === "approved") {
+            company.isApproved = true;
+            await company.save();
+            res.status(200).json({ message: "Company approved successfully." });
+        } else if (status === "rejected") {
+            // Delete the company record if the admin rejects the request
+            await Company.findByIdAndDelete(req.params.id);
+            res.status(200).json({ message: "Company rejected and deleted successfully." });
+        } else {
+            res.status(400).json({ message: "Invalid status. Please specify 'approved' or 'rejected'." });
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+
+
+
+module.exports = { CreateCompany, approvecompanyrequest, LoginCompany, Logoutcompany }
