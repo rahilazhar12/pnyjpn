@@ -20,7 +20,7 @@ const CompanyProfile = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/jobs/get-jobs-companyId', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/jobs/get-jobs-companyId`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const CompanyProfile = () => {
                 <CardMedia
                   component="img"
                   height="140"
-                  image={`http://localhost:8000/uploads/${job.companyLogo}`}
+                  image={`${import.meta.env.VITE_API_URL}/uploads/${job.companyLogo}`}
                   alt={`${job.companyName} Logo`}
                   sx={{ objectFit: 'contain', p: 2 }}
                 />

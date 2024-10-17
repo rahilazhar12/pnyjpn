@@ -139,7 +139,7 @@ const Postajob = () => {
       );
     }
   
-    fetch(`http://localhost:8000/api/v1/jobs/create-new-jobs`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/v1/jobs/create-new-jobs`, {
       method: "POST",
       body: formToSubmit,
       credentials: "include", // This will include credentials such as cookies
