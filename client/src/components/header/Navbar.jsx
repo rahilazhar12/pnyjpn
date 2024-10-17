@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Topheader from './Topheader';
 import { Link } from 'react-router-dom';
 import { useSessionStorage } from '../../context/Sessionstorage';
+import logo from '../../assets/img/logo/logo.png'
 
 const Navbar = () => {
   const { user, role } = useSessionStorage();
@@ -20,7 +21,7 @@ const Navbar = () => {
           {/* Logo Section */}
           <div className="flex items-center space-x-2">
             <Link to='/'>
-              <img src="../../src/assets/img/logo/logo.png" alt="Logo" className="w-16" />
+              <img src={logo} alt="Logo" className="w-16" />
             </Link>
             <div className="hidden lg:block">
               <h1 className="text-xl font-bold text-blue-500">Job Finder</h1>

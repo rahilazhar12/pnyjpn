@@ -1,6 +1,7 @@
 import React , {useEffect} from "react";
 import './Home.css'
 import Featured from "./Featured";
+import sirwahab from '../../assets/img/hero/h1_hero.jpg'
 
 
 const Home = () => {
@@ -9,10 +10,12 @@ const Home = () => {
 }, [])
   return (
     <>
-      <section
-        className="relative h-screen bg-cover bg-center"
-        style={{ backgroundImage: 'url("src/assets/img/hero/h1_hero.jpg")' }}
-      >
+    <section
+  className="relative h-screen bg-cover bg-center"
+  style={{ backgroundImage: `url(${sirwahab})` }}
+>
+
+
         {/* Overlay for better contrast (optional) */}
         <div className="absolute inset-0 bg-white bg-opacity-0" />
 
