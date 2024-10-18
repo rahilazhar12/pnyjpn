@@ -15,6 +15,9 @@ router.get('/get-users', GetUsers)
 router.post('/user-login', UserLogin)
 
 router.post('/jobs/apply/:jobId', requireAuth, ApplyForJob);
+
+
+
 router.post('/profile', requireAuth, upload.single('profilePicture'), Profileregister)
 router.put('/updateprofile/:id', updateProfile);
 

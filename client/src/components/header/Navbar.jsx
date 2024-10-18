@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import Topheader from './Topheader';
-import { Link } from 'react-router-dom';
-import { useSessionStorage } from '../../context/Sessionstorage';
-import logo from '../../assets/img/logo/logo.png'
+import React, { useState } from "react";
+import Topheader from "./Topheader";
+import { Link } from "react-router-dom";
+import { useSessionStorage } from "../../context/Sessionstorage";
+import logo from "../../assets/img/logo/logo.png";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const { user, role } = useSessionStorage();
@@ -20,7 +21,7 @@ const Navbar = () => {
         <div className="container mx-auto px-4 lg:px-16 py-4 flex items-center justify-between">
           {/* Logo Section */}
           <div className="flex items-center space-x-2">
-            <Link to='/'>
+            <Link to="/">
               <img src={logo} alt="Logo" className="w-16" />
             </Link>
             <div className="hidden lg:block">
@@ -28,46 +29,89 @@ const Navbar = () => {
               <p className="text-red-500 text-sm">Get your dream job</p>
             </div>
           </div>
-
           {/* Nav Links Section (hidden on mobile, flex on medium and up) */}
+
           <div className="hidden md:flex space-x-8 text-gray-700">
-            <Link to="/" className="hover:text-blue-900">Home</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "text-blue-900" : "hover:text-blue-900"
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/about-us"
+              className={({ isActive }) =>
+                isActive ? "text-blue-900" : "hover:text-blue-900"
+              }
+            >
+              About Us
+            </NavLink>
+            <NavLink
+              to="/contact-us"
+              className={({ isActive }) =>
+                isActive ? "text-blue-900" : "hover:text-blue-900"
+              }
+            >
+              Contact Us
+            </NavLink>
 
             {(role === "User" || role === "pnyalumini") && (
-  <>
-    <Link to="/new-profile" className="hover:text-blue-900">
-      Profile Builder
-    </Link>
-  </>
-)}
-
+              <>
+                <NavLink
+                  to="/new-profile"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-900" : "hover:text-blue-900"
+                  }
+                >
+                  Profile Builder
+                </NavLink>
+              </>
+            )}
 
             {role === "company" && (
               <>
-                <Link to="/post-jobs" className="hover:text-blue-900">Post a Job</Link>
-                <Link to="/company-profile" className="hover:text-blue-900">Profile</Link>
+                <NavLink
+                  to="/post-jobs"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-900" : "hover:text-blue-900"
+                  }
+                >
+                  Post a Job
+                </NavLink>
+                <NavLink
+                  to="/company-profile"
+                  className={({ isActive }) =>
+                    isActive ? "text-blue-900" : "hover:text-blue-900"
+                  }
+                >
+                  Profile
+                </NavLink>
               </>
             )}
           </div>
-
           {/* Buttons Section */}
           <div className="hidden md:flex space-x-4">
             {user ? (
-              <Link >
-                
-              </Link>
+              <Link></Link>
             ) : (
               <>
-                <Link to='/register-student' className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition duration-300 ease-in-out">
+                <Link
+                  to="/register-student"
+                  className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition duration-300 ease-in-out"
+                >
                   User Register
                 </Link>
-                <Link to='/login-users' className="border border-pink-500 text-pink-500 px-4 py-2 rounded-md hover:bg-pink-50 transition duration-300 ease-in-out">
+                <Link
+                  to="/login-users"
+                  className="border border-pink-500 text-pink-500 px-4 py-2 rounded-md hover:bg-pink-50 transition duration-300 ease-in-out"
+                >
                   User Login
                 </Link>
               </>
             )}
           </div>
-
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
@@ -96,7 +140,11 @@ const Navbar = () => {
         {/* Mobile Menu (visible when the state is true) */}
         {isMobileMenuOpen && (
           <div
-            className={`md:hidden bg-white transition duration-300 ease-in-out transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
+            className={`md:hidden bg-white transition duration-300 ease-in-out transform ${
+              isMobileMenuOpen
+                ? "translate-y-0 opacity-100"
+                : "translate-y-full opacity-0"
+            }`}
           >
             <div className="px-4 py-2 space-y-2">
               <Link to="/" className="block text-gray-700 hover:text-blue-900">
@@ -104,8 +152,12 @@ const Navbar = () => {
               </Link>
               {role === "company" && (
                 <>
-                  <Link to="/post-jobs" className="hover:text-blue-900">Post a Job</Link>
-                  <Link to="/company-profile" className="hover:text-blue-900">Profile</Link>
+                  <Link to="/post-jobs" className="hover:text-blue-900">
+                    Post a Job
+                  </Link>
+                  <Link to="/company-profile" className="hover:text-blue-900">
+                    Profile
+                  </Link>
                 </>
               )}
 
@@ -117,12 +169,18 @@ const Navbar = () => {
                   </button>
                 ) : (
                   <>
-                    <button className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition duration-300 ease-in-out">
-                      Register
-                    </button>
-                    <button className="border border-pink-500 text-pink-500 px-4 py-2 rounded-md hover:bg-pink-50 transition duration-300 ease-in-out">
-                      Login
-                    </button>
+                    <Link
+                      to="register-student"
+                      className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition duration-300 ease-in-out"
+                    >
+                      User Register
+                    </Link>
+                    <Link
+                      to="login-users"
+                      className="border border-pink-500 text-pink-500 px-4 py-2 rounded-md hover:bg-pink-50 transition duration-300 ease-in-out"
+                    >
+                      User Login
+                    </Link>
                   </>
                 )}
               </div>

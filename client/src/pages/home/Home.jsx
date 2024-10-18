@@ -2,6 +2,8 @@ import React , {useEffect} from "react";
 import './Home.css'
 import Featured from "./Featured";
 import sirwahab from '../../assets/img/hero/h1_hero.jpg'
+import resumebg from '../../assets/img/gallery/cv_bg.jpg'
+
 
 
 const Home = () => {
@@ -56,7 +58,7 @@ const Home = () => {
 
 
 
-      <div className="relative bg-cover py-24" style={{ backgroundImage: 'url("src/assets/img/gallery/cv_bg.jpg")' }}>
+      <div className="relative bg-cover py-24" style={{ backgroundImage: `url(${resumebg})` }}>
   <div className="absolute inset-0 bg-blue-900 opacity-70"></div> {/* Overlay for background dimming */}
   
   <div className="container mx-auto relative z-10">

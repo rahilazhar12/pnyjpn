@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../../App";
-import Home from '../../pages/home/Home'
+import Home from "../../pages/home/Home";
 import StudentRegistrationForm from "../../pages/Userauth/Signup";
 import Postajob from "../../pages/Company/PostaJob/Postajob";
 import CategoryDetail from "../../pages/categories/Categoriesdetail";
@@ -10,10 +10,9 @@ import Companyprofile from "../../pages/Company/companyprofile/Companyprofile";
 import ProtectedRoute from "../protectedRoutes/Protectedroutes";
 import Restricted from "../../pages/error/restricted/Restricted";
 import Newprofile from "../../pages/profilebuilder/Newprofile";
-import Main from "../../pages/Newprofilebuilder/Main";
 import Signin from "../../pages/Userauth/Signin";
-
-
+import Aboutus from "../../pages/about-us/Aboutus";
+import Contactus from "../../pages/contact-us/Contactus";
 
 // import About from "../Pages/About";
 
@@ -24,6 +23,8 @@ const router = createBrowserRouter([
     children: [
       // Home Routes
       { index: true, element: <Home /> },
+      { path: "about-us", element: <Aboutus /> },
+      { path: "contact-us", element: <Contactus /> },
 
       // Company Routes -----------------------------------------------------
       { path: "register-company", element: <RegisterCompany /> },
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
       {
         path: "new-profile",
         element: (
-          <ProtectedRoute allowedRoles={["pnyalumini"]}>
+          <ProtectedRoute allowedRoles={["pnyalumini", "User"]}>
             <Newprofile />
           </ProtectedRoute>
         ),
