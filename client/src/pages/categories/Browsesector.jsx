@@ -152,17 +152,24 @@ const Browsesector = () => {
 
   useEffect(() => {
     const fetchJobCounts = async () => {
-      const counts = {};
-      for (const category of categories) {
-        const jobs = await fetchJobsByCategory(category.apiName); // Use the shared API service
-        counts[category.slug] = jobs.length;
+      try {
+        const countsPromises = categories.map(async (category) => {
+          const jobs = await fetchJobsByCategory(category.apiName); // Fetch jobs for each category
+          return { [category.slug]: jobs.length };
+        });
+
+        const results = await Promise.all(countsPromises);
+        const counts = Object.assign({}, ...results);
+        setJobCounts(counts);
+        setLoading(false); // Set loading to false after fetching is complete
+      } catch (error) {
+        console.error("Error fetching job counts:", error);
+        setLoading(false); // Ensure loading stops even if there is an error
       }
-      setJobCounts(counts);
-      setLoading(false); // Set loading to false after fetching is complete
     };
 
     fetchJobCounts();
-  }, []);
+  }, [categories]);
 
   return (
     <>
