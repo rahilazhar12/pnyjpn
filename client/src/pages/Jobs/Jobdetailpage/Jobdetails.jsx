@@ -15,7 +15,7 @@ const Jobdetails = () => {
     const fetchJobData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/v1/jobs/getjobs/${id}`
+          `${import.meta.env.VITE_API_URL}/api/v1/jobs/getjobs/${id}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch job data");
@@ -51,7 +51,7 @@ const Jobdetails = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/users/jobs/apply/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/users/jobs/apply/${id}`,
         {
           method: "POST",
           headers: {

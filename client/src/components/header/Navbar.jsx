@@ -49,7 +49,7 @@ const Navbar = () => {
             >
               About Us
             </NavLink>
-            
+
             <NavLink
               to="/contact-us"
               className={({ isActive }) =>
@@ -165,11 +165,7 @@ const Navbar = () => {
 
               {/* Mobile Menu Buttons */}
               <div className="flex flex-col space-y-2">
-                {user ? (
-                  <button className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600 transition duration-300 ease-in-out">
-                    Logout
-                  </button>
-                ) : (
+                {user ? null : (
                   <>
                     <Link
                       to="register-student"
@@ -183,6 +179,28 @@ const Navbar = () => {
                     >
                       User Login
                     </Link>
+                  </>
+                )}
+                {role === "company" && (
+                  <>
+                    <Link to="/post-jobs" className="hover:text-blue-900">
+                      Post a Job
+                    </Link>
+                    <Link to="/company-profile" className="hover:text-blue-900">
+                      Profile
+                    </Link>
+                  </>
+                )}
+                {(role === "User" || role === "pnyalumini") && (
+                  <>
+                    <NavLink
+                      to="/new-profile"
+                      className={({ isActive }) =>
+                        isActive ? "text-blue-900" : "hover:text-blue-900"
+                      }
+                    >
+                      Profile Builder
+                    </NavLink>
                   </>
                 )}
               </div>
