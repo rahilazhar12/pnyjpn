@@ -86,7 +86,6 @@ const Featured = () => {
         <div className="container mx-auto px-4">
           {/* Section Title */}
           <div className="text-center mb-10">
-           
             <h2 className="text-5xl font-semibold mt-2">
               Browse Top Categories
             </h2>
@@ -113,7 +112,10 @@ const Featured = () => {
           </div>
           {/* Browse All Button */}
           <div className="text-center mt-24">
-            <Link to="/all-categories" className="bg-pink-400 px-7 py-3">
+            <Link
+              to="/all-categories"
+              className="bg-pink-400 px-7 py-3 hover:text-white"
+            >
               Browse All Sectors
             </Link>
           </div>

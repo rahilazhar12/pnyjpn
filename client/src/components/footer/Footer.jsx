@@ -65,31 +65,34 @@ const Footer = () => {
           <p className="text-white mb-4">Connect with us on social media:</p>
           <div className="flex space-x-4">
             <a
-              href="https://www.facebook.com"
+              href="https://www.facebook.com/PNY.Trainings"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-pink-500"
             >
               <FaFacebookF size={24} />
             </a>
+
             <a
-              href="https://www.twitter.com"
+              href="https://x.com/PnyTrainings"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-pink-500"
             >
               <FaTwitter size={24} />
             </a>
+
             <a
-              href="https://www.behance.net"
+              href="https://www.linkedin.com/company/pny-trainings/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-pink-500"
             >
               <FaLinkedin size={24} />
             </a>
+
             <a
-              href="https://www.yourwebsite.com"
+              href="https://www.instagram.com/pny.trainings?igsh=MWM4ZGh4Y290ZHQzdw=="
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-pink-500"
