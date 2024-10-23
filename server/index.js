@@ -11,14 +11,24 @@ const memberrouter = require("./routers/members.Routes.js");
 
 // rest object
 const app = express();
+const allowedOrigins = ['https://pnycareer.com', 'http://localhost:5173'];
+
 app.use(
   cors({
-    origin: 'https://pnycareer.com' || "http://localhost:5173", // Frontend URL
-    credentials: true, // Allows cookies (including JWT) to be sent
-    methods: "GET,POST,PUT,DELETE", // Limit the allowed methods
-    allowedHeaders: "Content-Type,Authorization", // Specify the headers you allow
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        // Allow requests with matching origin or no origin (e.g., non-browser clients)
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
   })
 );
+
 // app.use(
 //   cors({
 //     origin: "http://localhost:5173", // Frontend URL

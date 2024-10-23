@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Personal from "./Personal";
 import { useForm } from "react-hook-form";
 import Experience from "./Experience";
@@ -43,16 +43,11 @@ const Newprofile = () => {
   const token = User ? JSON.parse(User).token : null;
   const id = User ? JSON.parse(User)._id : null;
 
-
-  console.log(token)
-
-
+  console.log(token);
 
   const selectStep = (index) => {
-  setCurrentStep(index); // Set the current step to the clicked step index
-};
-
-  
+    setCurrentStep(index); // Set the current step to the clicked step index
+  };
 
   // const nextStep = () => {
   //   if (canProceed && currentStep < stepTitles.length - 1) {
@@ -245,7 +240,10 @@ const Newprofile = () => {
     );
     if (allFieldsFilled) {
       // All fields are filled, proceed to add the currentAcademics to the academics array
-      setCertification((prevAcademics) => [...prevAcademics, currentcertification]);
+      setCertification((prevAcademics) => [
+        ...prevAcademics,
+        currentcertification,
+      ]);
       // Clear the current input fields for a new entry
       setCurrentcertification({
         Certification: "",
@@ -263,7 +261,6 @@ const Newprofile = () => {
   const [currentachievement, setCurrentachievement] = useState({
     AchievementTitle: "",
     AchievementDescriptions: "",
-   
   });
   const handleAddachievement = () => {
     // Check if all fields in currentacademics are filled
@@ -272,7 +269,10 @@ const Newprofile = () => {
     );
     if (allFieldsFilled) {
       // All fields are filled, proceed to add the currentAcademics to the academics array
-      setAchievements((prevAcademics) => [...prevAcademics, currentachievement]);
+      setAchievements((prevAcademics) => [
+        ...prevAcademics,
+        currentachievement,
+      ]);
       // Clear the current input fields for a new entry
       setCurrentachievement({
         AchievementTitle: "",
@@ -287,10 +287,9 @@ const Newprofile = () => {
   // Research
   const [research, setresearch] = useState([]);
   const [currentresearch, setCurrentresearch] = useState({
-        ResearchTitle: "",
-        PublicationVenue: "",
-        PublicationLink: "",
-   
+    ResearchTitle: "",
+    PublicationVenue: "",
+    PublicationLink: "",
   });
   const handleAddresearch = () => {
     // Check if all fields in currentacademics are filled
@@ -385,65 +384,6 @@ const Newprofile = () => {
 
   const { handleSubmit } = useForm();
 
-  //   const onSubmit = async () => {
-  //     // Map formData to the schema expected by the backend
-  //     const profileData = {
-  //         fname: formData.firstName,
-  //         lname: formData.lastName,
-  //         dob: formData.dob,
-  //         age: formData.age,
-  //         gender: formData.gender,
-  //         martialstatus: formData.martialstatus,
-  //         fathername: formData.fathername,
-  //         religion: formData.religion,
-  //         mobile: formData.mobile,
-  //         landline: formData.landline,
-  //         postaladdress: formData.postaladdress,
-  //         domicile: formData.domicile,
-  //         ResCountry: formData.ResCountry,
-  //         ResCity: formData.ResCity,
-  //         nationality: formData.nationality,
-  //         CNIC: formData.CNIC,
-  //         CNICexpiry: formData.CNICexpiry,
-  //         hafizquran: formData.hafizquran,
-  //         ExServiceOfficial: formData.ExServiceOfficial,
-  //         Governmentofficial: formData.Governmentofficial,
-  //         Disabled: formData.Disabled,
-  //         jobs: experiences, // Assuming the API expects an array of jobs
-  //         academics: academics, // Assuming the API expects an array of jobs
-  //         skills: skills, // Assuming the API expects an array of jobs
-
-  //     };
-
-  //     console.log(profileData , 'profiledata')
-
-  //     let response = await fetch(`${URL_API}/api/v1/users/profile/${id}`, {
-  //         method: "POST",
-  //         headers: {
-  //           'Authorization': `Bearer ${token}`,
-  //           'Content-Type': 'application/json' // Ensure the server knows to treat the request body as JSON
-  //         },
-  //         body: JSON.stringify(profileData),
-  //     });
-
-  //     const responseData = await response.json();
-
-  //     if (response.ok) {
-  //         alert(responseData.message);
-  //         // resetForm()
-  //         setFormData('')
-  //         setAcademics('')
-  //         sessionStorage.setItem('member', JSON.stringify(responseData));
-  //         navigate('/users')
-
-  //     }
-
-  //     else {
-  //         alert("Registration failed: " + (responseData.error || "An error occurred"));
-  //     }
-  // };
-
-
   const onSubmit = async () => {
     // Create a FormData object
     const submitFormData = new FormData();
@@ -488,82 +428,41 @@ const Newprofile = () => {
     if (formData.profilePicture) {
       submitFormData.append("profilePicture", formData.profilePicture);
     }
-    
 
     try {
-      let response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/users/profile`, {
-        method: "POST",
-        body: submitFormData,
-        credentials: 'include', // Ensure credentials are included
-    });
+      let response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/v1/users/profile`,
+        {
+          method: "POST",
+          body: submitFormData,
+          credentials: "include", // Ensure credentials are included
+        }
+      );
 
-    const responseData = await response.json();
+      const responseData = await response.json();
 
-    if (response.ok) {
+      if (response.ok) {
         // Success response handling
-        alert(responseData.message);  // Backend should provide a success message
+        alert(responseData.message); // Backend should provide a success message
         // Optional: Redirect or update UI upon success
-    } else {
+      } else {
         // Error response handling
-        alert("Registration failed: " + (responseData.message || "An unknown error occurred"));
+        alert(
+          "Registration failed: " +
+            (responseData.message || "An unknown error occurred")
+        );
         // Optional: Handle specific error scenarios based on responseData.details or similar
-    }
+      }
     } catch (error) {
-       // Exception handling if the request failed to fetch or there was a network error
-       console.error("Request Failed:", error);
-       alert("Failed to submit: Network error or invalid server response.");
+      // Exception handling if the request failed to fetch or there was a network error
+      console.error("Request Failed:", error);
+      alert("Failed to submit: Network error or invalid server response.");
     }
-
- 
   };
 
-//   const updateUserProfile = async () => {
-//     // Construct the updated profile data object
-//     const updatedProfileData = {
-//         // Personal Information
-//         firstName: formData.firstName,
-//         lastName: formData.lastName,
-//         // Populate other fields similarly...
-
-//         // Array Fields
-//         experiences: experiences,
-//         academics: academics,
-//         skills: skills,
-//         // Include other array fields...
-
-//         // Profile Picture (if updated)
-//         profilePicture: formData.profilePicture,
-//     };
-
-//     try {
-//         const response = await fetch(`${URL_API}/api/v1/users/profile/${id}`, {
-//             method: "PUT",
-//             headers: {
-
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(updatedProfileData),
-//         });
-
-//         const responseData = await response.json();
-
-//         if (response.ok) {
-//             // Handle successful update
-//             alert("Profile updated successfully");
-//         } else {
-//             // Handle update error
-//             alert("Failed to update profile: " + responseData.message);
-//         }
-//     } catch (error) {
-//         console.error("Error updating profile:", error);
-//         alert("Failed to update profile: Network error");
-//     }
-// };
-
-
-
-
-  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="container mx-auto p-4">
@@ -632,7 +531,7 @@ const Newprofile = () => {
             handleAddacademics={handleAddacademics}
             onSubmit={onSubmit}
             academics={academics}
-            setAcademics={setAcademics}  // <-- Pass setAcademics here
+            setAcademics={setAcademics} // <-- Pass setAcademics here
           />
         </>
       )}
@@ -652,14 +551,14 @@ const Newprofile = () => {
       )}
       {currentStep === 4 && (
         <>
-          <Trainings 
-           currenttrainings={currenttrainings}
-           handleChange={handleChange}
-           handleSubmit={handleSubmit}
-           handleAddtrainings={handleAddtrainings}
-           onSubmit={onSubmit}
-           trainings={trainings}
-           setTrainings={setTrainings}
+          <Trainings
+            currenttrainings={currenttrainings}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleAddtrainings={handleAddtrainings}
+            onSubmit={onSubmit}
+            trainings={trainings}
+            setTrainings={setTrainings}
           />
         </>
       )}
@@ -667,50 +566,50 @@ const Newprofile = () => {
       {currentStep === 5 && (
         <>
           <Certification
-           currentcertification={currentcertification}
-           handleChange={handleChange}
-           handleSubmit={handleSubmit}
-           handleAddcertification={handleAddcertification}
-           onSubmit={onSubmit}
-           certification={certification}
-           setCertification={setCertification}
+            currentcertification={currentcertification}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleAddcertification={handleAddcertification}
+            onSubmit={onSubmit}
+            certification={certification}
+            setCertification={setCertification}
           />
         </>
       )}
       {currentStep === 6 && (
         <>
           <Achievement
-           currentachievement={currentachievement}
-           handleChange={handleChange}
-           handleSubmit={handleSubmit}
-           handleAddachievement={handleAddachievement}
-           onSubmit={onSubmit}
-           achievements={achievements}
-           setAchievements={setAchievements}
+            currentachievement={currentachievement}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleAddachievement={handleAddachievement}
+            onSubmit={onSubmit}
+            achievements={achievements}
+            setAchievements={setAchievements}
           />
         </>
       )}
       {currentStep === 7 && (
         <>
           <Reasearch
-          currentresearch={currentresearch}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          handleAddresearch={handleAddresearch}
-          onSubmit={onSubmit}
-          research={research}
-          setResearch={setresearch}
+            currentresearch={currentresearch}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleAddresearch={handleAddresearch}
+            onSubmit={onSubmit}
+            research={research}
+            setResearch={setresearch}
           />
         </>
       )}
 
-       {currentStep === 8 && (
+      {currentStep === 8 && (
         <Targetjobs
-        setCanProceed={setCanProceed}
-        onSubmit={onSubmit}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        formData={formData}
+          setCanProceed={setCanProceed}
+          onSubmit={onSubmit}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          formData={formData}
         />
       )}
 

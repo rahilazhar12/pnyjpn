@@ -1,25 +1,43 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import App from "../../App";
-import Home from "../../pages/home/Home";
-import StudentRegistrationForm from "../../pages/Userauth/Signup";
-import Postajob from "../../pages/Company/PostaJob/Postajob";
-import CategoryDetail from "../../pages/categories/Categoriesdetail";
-import RegisterCompany from "../../pages/Company/Registercompany/Registercompany";
-import Companylogin from "../../pages/Company/companylogin/Companylogin";
-import Companyprofile from "../../pages/Company/companyprofile/Companyprofile";
 import ProtectedRoute from "../protectedRoutes/Protectedroutes";
 import Restricted from "../../pages/error/restricted/Restricted";
-import Newprofile from "../../pages/profilebuilder/Newprofile";
-import Signin from "../../pages/Userauth/Signin";
-import Aboutus from "../../pages/about-us/Aboutus";
-import Contactus from "../../pages/contact-us/Contactus";
+import Loader from "../Loader/Loader";
+import Jobdetails from "../../pages/Jobs/Jobdetailpage/Jobdetails";
+import Browsesector from "../../pages/categories/Browsesector";
 
-// import About from "../Pages/About";
+// Lazy loaded components
+const Home = lazy(() => import("../../pages/home/Home"));
+const StudentRegistrationForm = lazy(() =>
+  import("../../pages/Userauth/Signup")
+);
+const Postajob = lazy(() => import("../../pages/Company/PostaJob/Postajob"));
+const CategoryDetail = lazy(() =>
+  import("../../pages/categories/Categoriesdetail")
+);
+const RegisterCompany = lazy(() =>
+  import("../../pages/Company/Registercompany/Registercompany")
+);
+const Companylogin = lazy(() =>
+  import("../../pages/Company/companylogin/Companylogin")
+);
+const Companyprofile = lazy(() =>
+  import("../../pages/Company/companyprofile/Companyprofile")
+);
+const Newprofile = lazy(() => import("../../pages/profilebuilder/Newprofile"));
+const Signin = lazy(() => import("../../pages/Userauth/Signin"));
+const Aboutus = lazy(() => import("../../pages/about-us/Aboutus"));
+const Contactus = lazy(() => import("../../pages/contact-us/Contactus"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <App />
+      </Suspense>
+    ),
     children: [
       // Home Routes
       { index: true, element: <Home /> },
@@ -59,21 +77,25 @@ const router = createBrowserRouter([
         ),
       },
 
-      // { path: "all-categories", element: <h1>ALL Categories</h1> },
+      // Jobs
+      {
+        path: "job_details/:id",
+        element: <Jobdetails />,
+      },
+
       { path: "category/:slug", element: <CategoryDetail /> },
+      { path: "all-categories", element: <Browsesector /> },
     ],
   },
-
   {
     path: "/404",
     element: <Restricted />,
   },
   {
     path: "/admin-panel",
-    // element: <Admin/>,
     children: [
-      //   { index: true, element: <Dashboardmain/> },
-      //   { path: "add-case", element: <UserRegister/> },
+      // { index: true, element: <Dashboardmain /> },
+      // { path: "add-case", element: <UserRegister /> },
     ],
   },
 ]);

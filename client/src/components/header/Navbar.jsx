@@ -40,6 +40,7 @@ const Navbar = () => {
             >
               Home
             </NavLink>
+
             <NavLink
               to="/about-us"
               className={({ isActive }) =>
@@ -48,6 +49,7 @@ const Navbar = () => {
             >
               About Us
             </NavLink>
+            
             <NavLink
               to="/contact-us"
               className={({ isActive }) =>

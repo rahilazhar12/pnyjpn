@@ -8,42 +8,6 @@ const generateTokenAndSetCookie = require('../helpers/generatetoken')
 
 
 
-// const UserRegistration = async (req, res) => {
-//     try {
-//         const { name, email, password, contact, city, role, } = req.body;
-
-//         if (!name || !email || !password) {
-//             return res.status(400).send({ error: "Please fill all the fields." });
-//         }
-
-//         // Check existing email 
-//         const checkUser = await Userschema.findOne({ email });
-//         if (checkUser) {
-//             return res.status(400).send({ message: "User already exists." });
-//         }
-
-//         const hashed = await bcrypt.hash(password, 10);
-//         const newUser = new Userschema({
-//             name,
-//             email,
-//             password: hashed,
-//             role,
-//             contact,
-//             city
-//         });
-
-
-
-//         const result = await newUser.save();
-//         if (result) {
-//             return res.status(201).send({ message: "User registered successfully", role, email });
-//         }
-
-//     } catch (error) {
-//         console.error("Registration Error:", error);
-//         return res.status(500).send({ message: "Failed to register user." });
-//     }
-// };
 
 const UserRegistration = async (req, res) => {
     try {
@@ -160,10 +124,8 @@ const Profileregister = async (req, res) => {
         // Extract user details from request body or authentication token
         const { userName, id } = req.user; // Extracted from JWT token or another authentication mechanism
 
-
-
         // Check if a profile with the same userId already exists
-        const existingUser = await profilebuilderschema.findOne({ id });
+        const existingUser = await profilebuilderschema.findOne({ userId: id });
         if (existingUser) {
             return res.status(409).send({ message: "Profile with this ID already exists." });
         }
@@ -181,7 +143,7 @@ const Profileregister = async (req, res) => {
 
         // Initialize newUser with parsed and other fields
         const newUser = new profilebuilderschema({
-            id,
+            userId: id,
             userName,
             ...req.body,
             ...jsonFields

@@ -10,11 +10,14 @@ import {
   Button,
   Card,
   CardContent,
+  CircularProgress,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const JobListingArea = () => {
-  const { slug } = useParams(); // Get slug from the URL params
+  const { slug } = useParams();
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [jobLocations, setJobLocations] = useState([]);
@@ -25,9 +28,11 @@ const JobListingArea = () => {
     remote: false,
     freelance: false,
   });
+  const [loadingJobId, setLoadingJobId] = useState(null); // Track the job being applied to
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch jobs based on the slug using fetch API
     const fetchJobs = async () => {
       try {
         const response = await fetch(
@@ -35,11 +40,11 @@ const JobListingArea = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          setJobs(data); // Assuming the API returns the jobs in the format you need
-          setFilteredJobs(data); // Initially set all jobs as filtered
+          setJobs(data);
+          setFilteredJobs(data);
           const locations = Array.from(
             new Set(data.map((job) => job.jobLocation))
-          ); // Get unique job locations
+          );
           setJobLocations(locations);
         } else {
           console.error("Failed to fetch jobs:", response.status);
@@ -53,14 +58,12 @@ const JobListingArea = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  // Handle location filtering
   const handleLocationChange = (event) => {
     const selected = event.target.value;
     setSelectedLocation(selected);
     filterJobs(selected, selectedJobTypes);
   };
 
-  // Handle job type filtering
   const handleJobTypeChange = (event) => {
     const { name, checked } = event.target;
     setSelectedJobTypes((prev) => ({
@@ -70,16 +73,13 @@ const JobListingArea = () => {
     filterJobs(selectedLocation, { ...selectedJobTypes, [name]: checked });
   };
 
-  // Function to filter jobs based on location and job types
   const filterJobs = (location, jobTypes) => {
     let filtered = jobs;
 
-    // Filter by location if a location is selected
     if (location) {
       filtered = filtered.filter((job) => job.jobLocation === location);
     }
 
-    // Filter by job type
     if (jobTypes.fullTime) {
       filtered = filtered.filter((job) => job.employmentType === "Full-time");
     }
@@ -96,9 +96,47 @@ const JobListingArea = () => {
     setFilteredJobs(filtered);
   };
 
+  const applyForJob = async (jobId) => {
+    if (loadingJobId) return; // Prevent further clicks while loading
+  
+    setLoadingJobId(jobId); // Set loading state for this job
+  
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/v1/users/jobs/apply/${jobId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+  
+      const result = await response.json();
+  
+      // Dismiss any active toasts before showing a new one
+      toast.dismiss();
+  
+      if (response.ok) {
+        toast.success("Application submitted successfully!");
+        // navigate("/applications"); // You can enable navigation if needed
+      } else {
+        toast.error(result.message || "Failed to apply for the job.");
+      }
+    } catch (error) {
+      console.error("Error applying for the job:", error);
+      toast.dismiss(); // Ensure the previous toast is dismissed
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
+      setLoadingJobId(null); // Reset the loading state once the request is completed
+    }
+  };
+  
+
   return (
     <div className="job-listing-area bg-gray-100 pt-12 pb-12">
-      <div className="container  mx-auto px-4">
+      <div className="container mx-auto px-4">
         <Grid container spacing={4}>
           {/* Left Content */}
           <Grid item xs={12} md={3}>
@@ -311,8 +349,14 @@ const JobListingArea = () => {
                                 fontSize: "12px",
                                 textTransform: "none",
                               }}
+                              onClick={() => applyForJob(job._id)} // Trigger the apply function on button click
+                              disabled={loadingJobId === job._id} // Disable the button while loading
                             >
-                              Apply Now
+                              {loadingJobId === job._id ? (
+                                <CircularProgress size={24} />
+                              ) : (
+                                "Apply Now"
+                              )}
                             </Button>
                             <Typography
                               variant="body2"

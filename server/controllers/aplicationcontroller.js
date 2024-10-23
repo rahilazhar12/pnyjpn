@@ -6,9 +6,6 @@ const nodeMailer = require('nodemailer')
 const ApplyForJob = async (req, res) => {
     const { jobId } = req.params;
     const userId = req.user.id; // Assuming the user's ID is attached to req.user by your authentication middleware
-
-    console.log(userId);
-
     try {
         // Check for existing application
         const existingApplication = await Application.findOne({ job: jobId, applicant: userId });

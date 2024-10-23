@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { fetchJobsByCategory } from '../hooks/Getcategories';
+import React, { useEffect, useState } from "react";
+import { fetchJobsByCategory } from "../hooks/Getcategories";
 import {
   FaPenNib,
   FaCode,
@@ -9,21 +9,61 @@ import {
   FaLaptopCode,
   FaBuilding,
   FaFileAlt,
-} from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Featured = () => {
   const [jobCounts, setJobCounts] = useState({}); // State to hold job counts for each category
 
   const categories = [
-    { name: 'Design & Creative', slug: 'design-creative', apiName: 'design-creative', icon: <FaPenNib className="text-pink-400 md:text-6xl" /> },
-    { name: 'Design & Development', slug: 'design-development', apiName: 'design-development', icon: <FaCode className="text-pink-400 md:text-6xl" /> },
-    { name: 'Sales & Marketing', slug: 'sales-marketing', apiName: 'sales-marketing', icon: <FaChartLine className="text-pink-400 md:text-6xl" /> },
-    { name: 'Mobile Application', slug: 'mobile-application', apiName: 'mobile-application', icon: <FaMobileAlt className="text-pink-400 md:text-6xl" /> },
-    { name: 'Construction', slug: 'construction', apiName: 'construction', icon: <FaHardHat className="text-pink-400 md:text-6xl" /> },
-    { name: 'Information Technology', slug: 'information-technology', apiName: 'information-technology', icon: <FaLaptopCode className="text-pink-400 md:text-6xl" /> },
-    { name: 'Real Estate', slug: 'real-estate', apiName: 'real-estate', icon: <FaBuilding className="text-pink-400 md:text-6xl" /> },
-    { name: 'Content Writer', slug: 'content-writer', apiName: 'content-writer', icon: <FaFileAlt className="text-pink-400 md:text-6xl" /> },
+    {
+      name: "Design & Creative",
+      slug: "design-creative",
+      apiName: "design-creative",
+      icon: <FaPenNib className="text-pink-400 md:text-6xl" />,
+    },
+    {
+      name: "Design & Development",
+      slug: "design-development",
+      apiName: "design-development",
+      icon: <FaCode className="text-pink-400 md:text-6xl" />,
+    },
+    {
+      name: "Sales & Marketing",
+      slug: "sales-marketing",
+      apiName: "sales-marketing",
+      icon: <FaChartLine className="text-pink-400 md:text-6xl" />,
+    },
+    {
+      name: "Mobile Application",
+      slug: "mobile-application",
+      apiName: "mobile-application",
+      icon: <FaMobileAlt className="text-pink-400 md:text-6xl" />,
+    },
+    {
+      name: "Construction",
+      slug: "construction",
+      apiName: "construction",
+      icon: <FaHardHat className="text-pink-400 md:text-6xl" />,
+    },
+    {
+      name: "Information Technology",
+      slug: "information-technology",
+      apiName: "information-technology",
+      icon: <FaLaptopCode className="text-pink-400 md:text-6xl" />,
+    },
+    {
+      name: "Real Estate",
+      slug: "real-estate",
+      apiName: "real-estate",
+      icon: <FaBuilding className="text-pink-400 md:text-6xl" />,
+    },
+    {
+      name: "Content Writer",
+      slug: "content-writer",
+      apiName: "content-writer",
+      icon: <FaFileAlt className="text-pink-400 md:text-6xl" />,
+    },
   ];
 
   useEffect(() => {
@@ -46,26 +86,34 @@ const Featured = () => {
         <div className="container mx-auto px-4">
           {/* Section Title */}
           <div className="text-center mb-10">
-            <span className="text-pink-600 uppercase">Featured Tours Packages</span>
-            <h2 className="text-5xl font-semibold mt-2">Browse Top Categories</h2>
+           
+            <h2 className="text-5xl font-semibold mt-2">
+              Browse Top Categories
+            </h2>
           </div>
           {/* Categories Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {categories.map((category) => (
+            {categories.slice(0, 8).map((category) => (
               <Link key={category.slug} to={`/category/${category.slug}`}>
                 <div className="text-center border border-green-200 p-6 single-services">
-                  <div className="flex justify-center items-center text-4xl mb-4">{category.icon}</div>
+                  <div className="flex justify-center items-center text-4xl mb-4">
+                    {category.icon}
+                  </div>
                   <h5 className="text-lg">{category.name}</h5>
                   <span className="text-pink-600">
-                    ({jobCounts[category.slug] !== undefined ? jobCounts[category.slug] : 'Loading...'})
+                    (
+                    {jobCounts[category.slug] !== undefined
+                      ? jobCounts[category.slug]
+                      : "Loading..."}
+                    )
                   </span>
                 </div>
               </Link>
             ))}
           </div>
           {/* Browse All Button */}
-          <div className="text-center mt-10">
-            <Link to="/all-categories" className="border-btn2" id="scrollUp">
+          <div className="text-center mt-24">
+            <Link to="/all-categories" className="bg-pink-400 px-7 py-3">
               Browse All Sectors
             </Link>
           </div>

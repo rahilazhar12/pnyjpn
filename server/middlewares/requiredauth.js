@@ -4,8 +4,9 @@ const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({ message: "Authentication required" });
+        return res.status(401).json({ message: "You must sign in first to apply for this job." });
     }
+
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

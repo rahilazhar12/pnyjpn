@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -14,7 +14,7 @@ import {
   Alert,
 } from "@mui/material";
 import CreatableSelect from "react-select/creatable";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles"; 
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 
 // Custom styling for the form
 const FormContainer = styled(Box)(({ theme }) => ({
@@ -63,7 +63,7 @@ const theme = createTheme({
           },
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "#000", 
+              borderColor: "#000",
             },
             "&:hover fieldset": {
               borderColor: "#ff4c8b",
@@ -80,7 +80,7 @@ const theme = createTheme({
         root: {
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "#000", 
+              borderColor: "#000",
             },
             "&:hover fieldset": {
               borderColor: "#ff4c8b",
@@ -110,10 +110,14 @@ const Postajob = () => {
     employmentType: "",
     description: "",
     jobPostedBy: "",
-    category: "",  // Added field for category
+    category: "", // Added field for category
   });
 
-  const [alert, setAlert] = useState({ open: false, message: "", severity: "" });
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
 
   const handleCloseAlert = () => {
     setAlert({ ...alert, open: false });
@@ -126,19 +130,19 @@ const Postajob = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     const formToSubmit = new FormData();
     for (const key in formData) {
       formToSubmit.append(key, formData[key]);
     }
-  
+
     if (selectedOption.length > 0) {
       formToSubmit.append(
         "skillsRequired",
         JSON.stringify(selectedOption.map((option) => option.value))
       );
     }
-  
+
     fetch(`${import.meta.env.VITE_API_URL}/api/v1/jobs/create-new-jobs`, {
       method: "POST",
       body: formToSubmit,
@@ -184,7 +188,6 @@ const Postajob = () => {
         });
       });
   };
-  
 
   const options = [
     { value: "Javascript", label: "Javascript" },
@@ -205,35 +208,40 @@ const Postajob = () => {
   const customSelectStyles = {
     menu: (provided) => ({
       ...provided,
-      backgroundColor: "#fff", 
-      color: "#000", 
+      backgroundColor: "#fff",
+      color: "#000",
       opacity: 1,
       zIndex: 9999,
     }),
     control: (provided) => ({
       ...provided,
       backgroundColor: "rgba(255, 255, 255, 0.2)",
-      borderColor: "#000", 
+      borderColor: "#000",
       color: "#fff",
       "&:hover": {
-        borderColor: "#ff4c8b", 
+        borderColor: "#ff4c8b",
       },
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: "#fff", 
+      color: "#fff",
     }),
   };
 
   useEffect(() => {
-        window.scrollTo(0,0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <BackgroundContainer>
         <Container maxWidth="md">
-          <Typography variant="h4" gutterBottom align="center" sx={{ color: "#000000" }}>
+          <Typography
+            variant="h4"
+            gutterBottom
+            align="center"
+            sx={{ color: "#000000" }}
+          >
             Post a Job
           </Typography>
 
@@ -422,14 +430,54 @@ const Postajob = () => {
                     value={formData.category}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value="design-creative">Design & Creative</MenuItem>
-                    <MenuItem value="design-development">Design & Development</MenuItem>
-                    <MenuItem value="sales-marketing">Sales & Marketing</MenuItem>
-                    <MenuItem value="mobile-application">Mobile Application</MenuItem>
+                    <MenuItem value="design-creative">
+                      Design & Creative
+                    </MenuItem>
+                    <MenuItem value="design-development">
+                      Design & Development
+                    </MenuItem>
+                    <MenuItem value="sales-marketing">
+                      Sales & Marketing
+                    </MenuItem>
+                    <MenuItem value="mobile-application">
+                      Mobile Application
+                    </MenuItem>
                     <MenuItem value="construction">Construction</MenuItem>
-                    <MenuItem value="information-technology">Information Technology</MenuItem>
+                    <MenuItem value="information-technology">
+                      Information Technology
+                    </MenuItem>
                     <MenuItem value="real-estate">Real Estate</MenuItem>
                     <MenuItem value="content-writer">Content Writer</MenuItem>
+                    <MenuItem value="finance-accounting">
+                      Finance & Accounting
+                    </MenuItem>
+                    <MenuItem value="customer-service">
+                      Customer Service
+                    </MenuItem>
+                    <MenuItem value="healthcare-medical">
+                      Healthcare & Medical
+                    </MenuItem>
+                    <MenuItem value="engineering">Engineering</MenuItem>
+                    <MenuItem value="education-training">
+                      Education & Training
+                    </MenuItem>
+                    <MenuItem value="human-resources">Human Resources</MenuItem>
+                    <MenuItem value="administrative-clerical">
+                      Administrative & Clerical
+                    </MenuItem>
+                    <MenuItem value="legal">Legal</MenuItem>
+                    <MenuItem value="manufacturing-operations">
+                      Manufacturing & Operations
+                    </MenuItem>
+                    <MenuItem value="project-management">
+                      Project Management
+                    </MenuItem>
+                    <MenuItem value="logistics-supply-chain">
+                      Logistics & Supply Chain
+                    </MenuItem>
+                    <MenuItem value="retail-ecommerce">
+                      Retail & E-commerce
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -449,7 +497,11 @@ const Postajob = () => {
             onClose={handleCloseAlert}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
           >
-            <Alert onClose={handleCloseAlert} severity={alert.severity} sx={{ width: "100%" }}>
+            <Alert
+              onClose={handleCloseAlert}
+              severity={alert.severity}
+              sx={{ width: "100%" }}
+            >
               {alert.message}
             </Alert>
           </Snackbar>
