@@ -113,22 +113,22 @@ const Profilebuildermodal = new mongoose.Schema({
 
 
 
-  // JobTitle: {
-  //   type: String,
-  //   required: false
-  // },
-  // CareerLevel: {
-  //   type: String,
-  //   required: false
-  // },
-  // TargetMonthlySalary: {
-  //   type: String,
-  //   required: false
-  // },
-  // LastMonthlySalary: {
-  //   type: String,
-  //   required: false
-  // },
+  JobTitle: {
+    type: String,
+    required: false
+  },
+  CareerLevel: {
+    type: String,
+    required: false
+  },
+  TargetMonthlySalary: {
+    type: String,
+    required: false
+  },
+  LastMonthlySalary: {
+    type: String,
+    required: false
+  },
 
 
 

@@ -9,9 +9,16 @@ import {
   FormControl,
   Typography,
   Container,
+  CircularProgress,
 } from "@mui/material";
 
-const Targetjobs = ({ onSubmit, handleSubmit, handleChange, formData }) => {
+const Targetjobs = ({
+  onSubmit,
+  handleSubmit,
+  handleChange,
+  formData,
+  loading,
+}) => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
@@ -87,8 +94,14 @@ const Targetjobs = ({ onSubmit, handleSubmit, handleChange, formData }) => {
             variant="contained"
             color="success"
             sx={{ mt: 2 }}
+            disabled={loading} // Disable button while loading
           >
-            Submit
+            {loading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Submit"
+            )}{" "}
+            {/* Show loader or text */}
           </Button>
         </div>
       </form>

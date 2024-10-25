@@ -1,26 +1,34 @@
 const Jobs = require('../models/postJobs.js');
+const Application = require('../models/applicationschema.js')
 
 
-// const getJobsList = async (req, res) => {
-//     try {
-//         let data = await jobsModel.find()
-//         if (data) {
-//             res.send(data)
-//         } else {
-//             res.send({ "message": "No data found" })
-//         }
+exports.getApplicationsForJob = async (req, res) => {
+  const { jobId } = req.params;
 
-//     } catch (error) {
-//         console.log(error)
-//         res.status(500).send({
-//             success: false,
-//             message: "Something went wrong",
-//             error
-//         })
-//     }
-// }
+  try {
+    // Fetch all applications for the specific job, selecting only the applicant information
+    const applications = await Application.find({ job: jobId })
+      .select('applicant job name city contact email applicationDate');
 
-const getJobsList = async (req, res) => {
+    // If no applications found
+    if (!applications.length) {
+      return res.status(404).json({ message: 'No applications found for this job.' });
+    }
+
+    // Return applicant information
+    res.status(200).json({
+      success: true,
+      applications,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to retrieve applications' });
+  }
+};
+
+
+
+exports.getJobsList = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -43,4 +51,3 @@ const getJobsList = async (req, res) => {
 
 
 
-module.exports = getJobsList

@@ -332,14 +332,7 @@ const Personal = ({ setCanProceed, onSubmit, handleSubmit, handleChange, formDat
                 onChange={handleChange}
                 inputProps={{ accept: 'image/png, image/jpeg' }}
               />
-            </Grid>
-
-            {/* Submit Button */}
-            <Grid item xs={12}>
-              <Button type="submit" variant="contained" color="primary" fullWidth>
-                Submit
-              </Button>
-            </Grid>
+            </Grid>         
           </Grid>
         </CustomForm>
       </Box>

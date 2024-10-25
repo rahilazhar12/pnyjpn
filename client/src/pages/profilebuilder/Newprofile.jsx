@@ -25,6 +25,7 @@ const stepTitles = [
 
 const Newprofile = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [loading, setLoading] = useState(false); // Loading state
   const [canProceed, setCanProceed] = useState(false);
   const [accessibleSteps, setAccessibleSteps] = useState([
     true,
@@ -332,6 +333,10 @@ const Newprofile = () => {
     if (name === "profilePicture" && files.length > 0) {
       // Assuming you only want the first selected file
       const file = files[0];
+      if (file && file.size > 2 * 1024 * 1024) {
+        alert("The size of the image should be 2 MB or less.");
+        event.target.value = ""; // Reset the file input
+      }
 
       // Update your formData state with the selected file
       setFormData((prevFormData) => ({
@@ -385,6 +390,7 @@ const Newprofile = () => {
   const { handleSubmit } = useForm();
 
   const onSubmit = async () => {
+    setLoading(true); // Start loading
     // Create a FormData object
     const submitFormData = new FormData();
 
@@ -457,6 +463,8 @@ const Newprofile = () => {
       // Exception handling if the request failed to fetch or there was a network error
       console.error("Request Failed:", error);
       alert("Failed to submit: Network error or invalid server response.");
+    } finally {
+      setLoading(false); // Stop loading after response
     }
   };
 
@@ -610,6 +618,7 @@ const Newprofile = () => {
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           formData={formData}
+          loading={loading} // Pass loading prop to Targetjobs
         />
       )}
 

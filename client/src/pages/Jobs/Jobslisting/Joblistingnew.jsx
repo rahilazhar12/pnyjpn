@@ -261,7 +261,7 @@ const Joblistingnew = () => {
                                   <i className="fas fa-map-marker-alt" />
                                   {job.jobLocation}
                                 </li>
-                                <li>${job.maxPrice}</li>
+                                <li>{job.maxPrice}</li>
                               </ul>
                             </div>
                           </div>
@@ -272,7 +272,7 @@ const Joblistingnew = () => {
                                 borderColor: "#A78BFA",
                                 color: "#A78BFA",
                                 borderRadius: "50px",
-                                padding: "6px 16px",
+                                padding: "10px 34px",
                                 fontSize: "12px",
                                 textTransform: "none",
                               }}

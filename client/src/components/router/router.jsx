@@ -6,6 +6,8 @@ import Restricted from "../../pages/error/restricted/Restricted";
 import Loader from "../Loader/Loader";
 import Jobdetails from "../../pages/Jobs/Jobdetailpage/Jobdetails";
 import Browsesector from "../../pages/categories/Browsesector";
+import Applications from "../../pages/applicants/Applications";
+import Userprofile from "../../pages/Userauth/Userprofile";
 
 // Lazy loaded components
 const Home = lazy(() => import("../../pages/home/Home"));
@@ -67,6 +69,7 @@ const router = createBrowserRouter([
       // User Routes
       { path: "register-student", element: <StudentRegistrationForm /> },
       { path: "login-users", element: <Signin /> },
+      { path: "user_profile/:id", element: <Userprofile /> },
 
       {
         path: "new-profile",
@@ -85,12 +88,17 @@ const router = createBrowserRouter([
 
       { path: "category/:slug", element: <CategoryDetail /> },
       { path: "all-categories", element: <Browsesector /> },
+
+      // Applications
+      { path: "application_details/:id", element: <Applications /> },
     ],
   },
+
   {
     path: "/404",
     element: <Restricted />,
   },
+
   {
     path: "/admin-panel",
     children: [
