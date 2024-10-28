@@ -2,3 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+.completion-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1300;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.completion-icon {
+  font-size: 100px;
+  animation: popUp 0.5s ease-in-out;
+}
+
+.completion-text {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: white;
+}
+
+@keyframes popUp {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

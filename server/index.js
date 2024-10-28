@@ -1,6 +1,8 @@
 const express = require("express");
 const colors = require("colors");
+const nodemailer = require('nodemailer');
 const cors = require("cors");
+const cron = require('node-cron');
 const dotenv = require("dotenv"); // Note that you might often see dotenv.config() invoked immediately like this.
 const cookieParser = require("cookie-parser");
 const dbConnection = require("./database/dbcon.js");
@@ -8,6 +10,9 @@ const jobsRouterCollection = require("./routers/jobs.Routes.js");
 const userrouter = require("./routers/auth.Routes.js");
 const companyrouter = require("./routers/companies.Routes.js");
 const memberrouter = require("./routers/members.Routes.js");
+const Userschema = require('./models/user.model.js')
+
+
 
 // rest object
 const app = express();
@@ -51,6 +56,47 @@ app.use("/uploads", express.static("./uploads"));
 app.get("/get", (req, res) => {
   return res.send("Hellow World");
 });
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',  // or use another email service
+  auth: {
+    user: 'rahil.azhar10@gmail.com',
+    pass: 'kxfl vyti iamn jjre'
+  }
+});
+
+
+cron.schedule('0 0 * * *', async () => {  // Runs at midnight every day
+  try {
+    // Delete unverified users
+    await Userschema.deleteMany({ isVerified: false });
+    console.log("All unverified users have been cleaned up.");
+
+    // Send notification email
+    const mailOptions = {
+      from: 'rahil.azhar10@gmail.com',
+      to: 'rahil.azhar10@gmail.com',  // Replace with your email
+      subject: 'Daily Cleanup Report',
+      text: 'All unverified users have been successfully cleaned up'
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log("Notification email sent successfully.");
+  } catch (error) {
+    console.error("Error during cleanup or sending email:", error);
+  }
+});
+
+
+
+// cron.schedule('*/30 * * * * *', async () => {  // This runs every 30 seconds
+//   await Userschema.deleteMany({
+//     isVerified: false
+//   });
+
+//   console.log("All unverified users have been cleaned up.");
+// });
+
 
 app.use("/api/v1/jobs", jobsRouterCollection);
 app.use("/api/v1/users", userrouter);

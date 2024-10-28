@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
+import { FiLogIn, FiMenu, FiX } from "react-icons/fi";
+import { CiLogout } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useSessionStorage } from "../../context/Sessionstorage";
 import { useNavigate } from "react-router-dom";
@@ -54,7 +55,7 @@ const Topheader = () => {
                 <Link to="/register-company">
                   <li className="text-sm text-white">
                     <span className="text-sm flex gap-2 items-center hover:text-yellow-300">
-                      <FiLogOut />
+                      <FiLogIn />
                       COMPANY REGISTRATION
                     </span>
                   </li>
@@ -65,7 +66,7 @@ const Topheader = () => {
               {user ? (
                 <button onClick={Handlelogout} className="text-sm text-white">
                   <span className="text-sm flex gap-2 items-center hover:text-yellow-300">
-                    <FiLogOut />
+                    <CiLogout />
                     LOGOUT
                   </span>
                 </button>
@@ -79,6 +80,15 @@ const Topheader = () => {
                   </li>
                 </Link>
               )}
+
+              <Link to="">
+                <li className="text-sm text-white">
+                  <span className="text-sm flex gap-2 items-center hover:text-yellow-300">
+                    <FiLogIn />
+                    ADMIN LOGIN
+                  </span>
+                </li>
+              </Link>
             </ul>
 
             {/* Mobile Hamburger Icon */}
@@ -93,8 +103,6 @@ const Topheader = () => {
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
             <ul className="lg:hidden flex flex-col gap-4 mt-2 bg-slate-700 p-4 rounded-lg">
-              
-
               {!user && (
                 <Link to="/register-company" onClick={toggleMobileMenu}>
                   <li className="text-sm text-white">

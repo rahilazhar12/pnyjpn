@@ -1,6 +1,6 @@
 // import mongoose from "mongoose";
 const express = require('express')
-const { UserRegistration, UserLogin, Profileregister, Getprofile, updateProfile, GetUsers } = require('../controllers/Users')
+const { UserRegistration, UserLogin, Profileregister, Getprofile, updateProfile, GetUsers, verifyCode } = require('../controllers/Users')
 const { ApplyForJob } = require('../controllers/aplicationcontroller')
 const { requireAuth } = require('../middlewares/requiredauth')
 const upload = require('../multer/imgConfig.js');
@@ -12,6 +12,7 @@ const router = express.Router()
 
 
 router.post('/register-user', UserRegistration)
+router.post('/verify-code', verifyCode);
 router.get('/get-users', GetUsers)
 router.post('/user-login', UserLogin)
 
