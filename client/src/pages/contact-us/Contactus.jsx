@@ -15,13 +15,7 @@ const Contactus = () => {
               </h2>
             </div>
             <div className="w-full lg:w-8/12">
-              <form
-                className="form-contact contact_form"
-                action="contact_process.php"
-                method="post"
-                id="contactForm"
-                noValidate="novalidate"
-              >
+              <form className="">
                 <div className="flex flex-wrap">
                   <div className="w-full">
                     <div className="form-group mb-4">
@@ -79,10 +73,7 @@ const Contactus = () => {
                   </div>
                 </div>
                 <div className="form-group mt-3">
-                  <button
-                    type="submit"
-                    className="button-contactForm boxed-btn py-3 px-6 rounded-lg"
-                  >
+                  <button className="boxed-btn py-3 px-6 rounded-lg">
                     Send
                   </button>
                 </div>

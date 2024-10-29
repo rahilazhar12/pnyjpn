@@ -107,7 +107,7 @@ const Topheader = () => {
                 <Link to="/register-company" onClick={toggleMobileMenu}>
                   <li className="text-sm text-white">
                     <span className="text-sm flex gap-2 items-center hover:text-yellow-300">
-                      <FiLogOut />
+                      <CiLogout />
                       COMPANY REGISTRATION
                     </span>
                   </li>
@@ -118,7 +118,7 @@ const Topheader = () => {
               {user ? (
                 <button className="text-sm text-white" onClick={Handlelogout}>
                   <span className="text-sm flex gap-2 items-center hover:text-yellow-300">
-                    <FiLogOut />
+                    <CiLogout />
                     LOGOUT
                   </span>
                 </button>

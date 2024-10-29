@@ -348,9 +348,17 @@ const Postajob = () => {
                     onChange={handleInputChange}
                   >
                     <MenuItem value="">Choose your experience</MenuItem>
-                    <MenuItem value="NoExperience">No experience</MenuItem>
-                    <MenuItem value="Internship">Internship</MenuItem>
-                    <MenuItem value="Work remotely">Work remotely</MenuItem>
+                    <MenuItem value="Intern / Student">
+                      Intern / Student
+                    </MenuItem>
+                    <MenuItem value="Entry Level">Entry Level</MenuItem>
+                    <MenuItem value="Experienced Professional">
+                      Experienced Professional
+                    </MenuItem>
+                    <MenuItem value="Department Head">Department Head</MenuItem>
+                    <MenuItem value="GM / CEO/Country Head / President">
+                      GM / CEO / Country Head / President
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

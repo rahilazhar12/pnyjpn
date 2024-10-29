@@ -3,99 +3,11 @@ const bcrypt = require("bcrypt");
 const profilebuilderschema = require("../models/Profilebuilder/profilebuilderschema.js");
 const PNYAlumniSchema = require("../models/pnyalumini.js");
 const generateTokenAndSetCookie = require("../helpers/generatetoken");
-const nodemailer = require("nodemailer");
-
-// const UserRegistration = async (req, res) => {
-//     try {
-//         const { name, email, password, contact, city, role, isPNYAlumni, batchNo, courseName } = req.body;
-
-//         // Basic validation
-//         if (!name || !email || !password) {
-//             return res.status(400).send({ message: "Please fill all the fields." });
-//         }
-
-//         // Check existing email in both User and PNY Alumni schemas
-//         const checkUser = await Userschema.findOne({ email });
-//         const checkAlumni = await PNYAlumniSchema.findOne({ email });
-
-//         if (checkUser || checkAlumni) {
-//             return res.status(400).send({ message: "Email already exists in our records." });
-//         }
-
-//         const hashedPassword = await bcrypt.hash(password, 10);
-
-//         if (isPNYAlumni) {
-//             // Additional validation for PNY alumni fields
-//             if (!batchNo || !courseName) {
-//                 return res.status(400).send({ message: "Please provide batch number and course name for PNY alumni." });
-//             }
-
-//             // Handling PNY alumni registration
-//             const newAlumni = new PNYAlumniSchema({
-//                 name,
-//                 email,
-//                 password: hashedPassword,
-//                 role,
-//                 contact,
-//                 city,
-//                 batchNo,   // These fields are specific to PNY alumni
-//                 courseName
-//             });
-//             const result = await newAlumni.save();
-//             if (result) {
-//                 return res.status(201).send({ message: "PNY Alumni registered successfully", role, email });
-//             }
-//         } else {
-//             // Handling regular user registration
-//             const newUser = new Userschema({
-//                 name,
-//                 email,
-//                 password: hashedPassword,
-//                 role,
-//                 contact,
-//                 city
-//             });
-//             const result = await newUser.save();
-//             if (result) {
-//                 return res.status(201).send({ message: "User registered successfully", role, email });
-//             }
-//         }
-//     } catch (error) {
-//         console.error("Registration Error:", error);
-//         return res.status(500).send({ message: "Failed to register user." });
-//     }
-// }
-
-// Generate random verification code
-
-async function sendVerificationCode(email, code, userName) {
-    const transporter = nodemailer.createTransport({
-        service: "gmail", // or your email service
-        auth: {
-            user: "rahil.azhar10@gmail.com",
-            pass: "kxfl vyti iamn jjre",
-        },
-    });
-
-    const mailOptions = {
-        from: "rahil.azhar10@gmail.com",
-        to: email,
-        subject: "Verification Code",
-        html: `Dear ${userName},<br><br>Thank you for registering with the PNY Job Portal! To complete your registration and verify your email address, please enter the verification code below:<br><br>
-
-<strong>Verification Code: ${code}</strong><br><br>
-
-This code is valid for the next 15 minutes. If you did not create an account on the PNY Job Portal, please ignore this message.<br><br>
-
-We look forward to helping you on your journey to finding the perfect job.<br><br>
-
-Best regards,<br>
-The PNY Job Portal Team`,
-    };
+const { sendVerificationCodeEmail } = require("../utils/emailService.js");
 
 
-    return transporter.sendMail(mailOptions);
-}
+
+
 
 function generateVerificationCode() {
     return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit code
@@ -153,7 +65,7 @@ const UserRegistration = async (req, res) => {
             });
 
             await newAlumni.save();
-            await sendVerificationCode(email, verificationCode, name);
+            await sendVerificationCodeEmail(email, verificationCode, name);
 
             return res
                 .status(201)
@@ -173,7 +85,7 @@ const UserRegistration = async (req, res) => {
             });
 
             await newUser.save();
-            await sendVerificationCode(email, verificationCode, name);
+            await sendVerificationCodeEmail(email, verificationCode, name);
 
             return res
                 .status(201)
@@ -215,94 +127,10 @@ const verifyCode = async (req, res) => {
     }
 };
 
-const GetUsers = async (req, res) => { 
-    
+const GetUsers = async (req, res) => {
+
 };
 
-// const UserLogin = async (req, res) => {
-//     try {
-//         const { email, password } = req.body;
-
-//         // Attempt to find the user in both schemas
-//         const user = await Userschema.findOne({ email });
-//         const pnyAlumni = await PNYAlumniSchema.findOne({ email });
-
-//         // Determine which user object to use
-//         const currentUser = user || pnyAlumni;
-
-//         // Check if a user was found and if the password is correct
-//         if (!currentUser) {
-//             return res.status(400).json({ error: "Invalid username or password" });
-//         }
-
-//         const isPasswordCorrect = await bcrypt.compare(password, currentUser.password);
-
-//         if (!isPasswordCorrect) {
-//             return res.status(400).json({ error: "Invalid username or password" });
-//         }
-
-//         // Generate token and set cookie
-//         generateTokenAndSetCookie(currentUser._id, currentUser.name, res);
-
-//         // Determine role based on the type of user
-//         const role = user ? 'User' : 'pnyalumini';
-
-//         // Respond with login success
-//         res.status(200).json({
-//             Message: "Login Success",
-//             role: role
-//         });
-
-//     } catch (error) {
-//         console.log("Error in login controller", error.message);
-//         res.status(500).json({ error: "Internal Server Error" });
-//     }
-// };
-
-// const UserLogin = async (req, res) => {
-//     try {
-//         const { email, password } = req.body;
-
-//         // Attempt to find the user in both schemas
-//         const user = await Userschema.findOne({ email });
-//         const pnyAlumni = await PNYAlumniSchema.findOne({ email });
-
-//         // Determine which user object to use
-//         const currentUser = user || pnyAlumni;
-
-//         // Check if a user was found
-//         if (!currentUser) {
-//             return res.status(400).json({ message: "Invalid username or password" });
-//         }
-
-//         // Check if the user is verified
-//         if (!currentUser.isVerified) {
-//             return res.status(403).json({ message: "Account not verified. Please verify your account to proceed." });
-//         }
-
-//         // Check if the password is correct
-//         const isPasswordCorrect = await bcrypt.compare(password, currentUser.password);
-//         if (!isPasswordCorrect) {
-//             return res.status(400).json({ message: "Invalid username or password" });
-//         }
-
-//         // Generate token and set cookie
-//         generateTokenAndSetCookie(currentUser._id, currentUser.name, res);
-
-//         // Determine role based on the type of user
-//         const role = user ? 'User' : 'pnyalumini';
-
-//         // Respond with login success
-//         res.status(200).json({
-//             message: "Login Success",
-//             role: role
-//         });
-
-//     } catch (error) {
-//         console.log("Error in login controller", error.message);
-//         res.status(500).json({ essage: "Internal Server Error" });
-//     }
-// };
 
 const UserLogin = async (req, res) => {
     try {
@@ -330,7 +158,7 @@ const UserLogin = async (req, res) => {
             await currentUser.save(); // Save the new code to the database
 
             // Send verification email
-            await sendVerificationCode(email, verificationCode);
+            await sendVerificationCodeEmail(email, verificationCode, currentUser.name);
 
             return res.status(403).json({
                 message:
