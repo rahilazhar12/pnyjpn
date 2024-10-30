@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -94,7 +95,9 @@ const CompanyProfile = () => {
       if (response.ok) {
         const updatedJob = await response.json();
         setJobs((prevJobs) =>
-          prevJobs.map((job) => (job._id === updatedJob.job._id ? updatedJob.job : job))
+          prevJobs.map((job) =>
+            job._id === updatedJob.job._id ? updatedJob.job : job
+          )
         );
         handleClose();
       } else {
@@ -117,7 +120,9 @@ const CompanyProfile = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/jobs/delete-jobs/${jobToDelete._id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/jobs/delete-jobs/${
+          jobToDelete._id
+        }`,
         {
           method: "DELETE",
           headers: {
@@ -127,7 +132,9 @@ const CompanyProfile = () => {
       );
 
       if (response.ok) {
-        setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobToDelete._id));
+        setJobs((prevJobs) =>
+          prevJobs.filter((job) => job._id !== jobToDelete._id)
+        );
       } else {
         console.error("Failed to delete job:", response.statusText);
       }
@@ -142,7 +149,12 @@ const CompanyProfile = () => {
   if (loading) {
     return (
       <Container>
-        <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+        >
           <CircularProgress />
         </Box>
       </Container>
@@ -151,11 +163,20 @@ const CompanyProfile = () => {
 
   return (
     <Container sx={{ py: 5 }}>
-      <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ fontWeight: "bold" }}>
+      <Typography
+        variant="h3"
+        component="h1"
+        gutterBottom
+        align="center"
+        sx={{ fontWeight: "bold" }}
+      >
         Company Jobs
       </Typography>
       {jobs.length > 0 ? (
-        <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto" }}>
+        <TableContainer
+          component={Paper}
+          sx={{ maxWidth: "100%", overflowX: "auto" }}
+        >
           <Table aria-label="jobs table">
             <TableHead>
               <TableRow>
@@ -173,7 +194,9 @@ const CompanyProfile = () => {
                 <TableRow key={job._id}>
                   <TableCell>
                     <img
-                      src={`${import.meta.env.VITE_API_URL}/uploads/${job.companyLogo}`}
+                      src={`${import.meta.env.VITE_API_URL}/uploads/${
+                        job.companyLogo
+                      }`}
                       alt={`${job.companyName} Logo`}
                       style={{ width: 50, height: 50, objectFit: "contain" }}
                     />
@@ -186,12 +209,31 @@ const CompanyProfile = () => {
                   </TableCell>
                   <TableCell>{job.experienceLevel}</TableCell>
                   <TableCell align="center">
-                    <Button onClick={() => handleEdit(job)} size="small" color="primary" variant="contained" sx={{ mr: 1 }}>
+                    <Button
+                      onClick={() => handleEdit(job)}
+                      size="small"
+                      color="primary"
+                      variant="contained"
+                      sx={{ mr: 1 }}
+                    >
                       Edit
                     </Button>
-                    <Button onClick={() => handleDeleteModalOpen(job)} size="small" color="secondary" variant="contained">
+                    <Button
+                      onClick={() => handleDeleteModalOpen(job)}
+                      size="small"
+                      color="secondary"
+                      variant="contained"
+                    >
                       Delete
                     </Button>
+                    <Link
+                      to={`/application_details/${job._id}`}
+                      className="ml-2"
+                    >
+                      <Button size="small" color="warning" variant="contained">
+                        Resume
+                      </Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}
@@ -228,7 +270,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.jobTitle || ""}
-                onChange={(e) => setEditJob({ ...editJob, jobTitle: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, jobTitle: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -237,7 +281,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.companyName || ""}
-                onChange={(e) => setEditJob({ ...editJob, companyName: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, companyName: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -246,7 +292,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.jobLocation || ""}
-                onChange={(e) => setEditJob({ ...editJob, jobLocation: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, jobLocation: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -255,7 +303,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.minPrice || ""}
-                onChange={(e) => setEditJob({ ...editJob, minPrice: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, minPrice: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -264,7 +314,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.maxPrice || ""}
-                onChange={(e) => setEditJob({ ...editJob, maxPrice: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, maxPrice: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -273,7 +325,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.salaryType || ""}
-                onChange={(e) => setEditJob({ ...editJob, salaryType: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, salaryType: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -282,7 +336,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.experienceLevel || ""}
-                onChange={(e) => setEditJob({ ...editJob, experienceLevel: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, experienceLevel: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -291,7 +347,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.skillsRequired || ""}
-                onChange={(e) => setEditJob({ ...editJob, skillsRequired: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, skillsRequired: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -300,7 +358,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.employmentType || ""}
-                onChange={(e) => setEditJob({ ...editJob, employmentType: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, employmentType: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12} md={12}>
@@ -309,7 +369,9 @@ const CompanyProfile = () => {
                 fullWidth
                 margin="normal"
                 value={editJob?.category || ""}
-                onChange={(e) => setEditJob({ ...editJob, category: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, category: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={12}>
@@ -320,7 +382,9 @@ const CompanyProfile = () => {
                 rows={4}
                 margin="normal"
                 value={editJob?.description || ""}
-                onChange={(e) => setEditJob({ ...editJob, description: e.target.value })}
+                onChange={(e) =>
+                  setEditJob({ ...editJob, description: e.target.value })
+                }
               />
             </Grid>
           </Grid>
@@ -337,7 +401,8 @@ const CompanyProfile = () => {
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this job? This action cannot be undone.
+            Are you sure you want to delete this job? This action cannot be
+            undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
