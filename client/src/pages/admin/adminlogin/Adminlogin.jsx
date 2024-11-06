@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   TextField,
   Button,
@@ -13,6 +13,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { MdLogin } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../context/Sessionstorage"; // Import the context
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -23,8 +24,9 @@ const AdminLogin = () => {
     message: "",
     severity: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false); // Flag for disabling button during login
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { setUser, setRole } = useContext(UserContext); // Use context to set user and role
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -52,11 +54,14 @@ const AdminLogin = () => {
           `${import.meta.env.VITE_CRYPTO_SECRET}`
         ).toString();
         localStorage.setItem("Data", encryptedData);
-        if (data.role === "admin") {
-          navigate("/admin-dashboard");
-        } else {
-          navigate("/404"); // Or any restricted access page
-        }
+
+        // Set user data in context
+        setUser(data);
+        setRole(data.role);
+
+        navigate("/admin-dashboard");
+        window.location.reload();
+
         setSnackbar({
           open: true,
           message: "Login successful!",
@@ -166,7 +171,7 @@ const AdminLogin = () => {
               fullWidth
               startIcon={<MdLogin />}
               className="mt-4"
-              disabled={isSubmitting} // Disable button while submitting
+              disabled={isSubmitting}
             >
               Login
             </Button>
@@ -177,7 +182,6 @@ const AdminLogin = () => {
         </Box>
       </Paper>
 
-      {/* Snackbar for success and error messages */}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}

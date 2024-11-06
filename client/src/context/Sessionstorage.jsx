@@ -1,39 +1,41 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import CryptoJS from "crypto-js"; // Include this if you're using npm
+import CryptoJS from "crypto-js";
 
 // Create the context
-const UserContext = createContext();
+export const UserContext = createContext(); // Ensure export here
 
 // Create a provider component
 export const SessionStorageProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const encryptedData = localStorage.getItem("Data");
     if (encryptedData) {
       try {
-        const bytes = CryptoJS.AES.decrypt(encryptedData, `${import.meta.env.CRYPTO_SECRET}`);
+        const bytes = CryptoJS.AES.decrypt(
+          encryptedData,
+          `${import.meta.env.CRYPTO_SECRET}`
+        );
         const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        setUser(decryptedData); // Set the full user object
-        setRole(decryptedData.role); // Extract and set the role
+        setUser(decryptedData);
+        setRole(decryptedData.role);
       } catch (error) {
         console.error("Decryption error", error);
       }
     }
-    setLoading(false); // Set loading to false once data has been processed
+    setLoading(false);
   }, []);
 
-  // Logout function to clear session storage and reset state
   const logout = () => {
     localStorage.removeItem("Data");
-    setUser(null); // Clear the user state
-    setRole(null); // Clear the role state
+    setUser(null);
+    setRole(null);
   };
 
   return (
-    <UserContext.Provider value={{ user, role, loading, logout }}>
+    <UserContext.Provider value={{ user, role, loading, setUser, setRole, logout }}>
       {children}
     </UserContext.Provider>
   );
