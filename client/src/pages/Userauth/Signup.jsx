@@ -180,10 +180,6 @@ export default function StudentRegistrationForm() {
     setToast({ ...toast, open: false });
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <ThemeProvider theme={theme}>
       <Box

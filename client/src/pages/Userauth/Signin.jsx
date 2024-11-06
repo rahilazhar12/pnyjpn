@@ -26,6 +26,9 @@ const theme = createTheme({
   palette: {
     primary: pink,
   },
+  typography: {
+    fontFamily: "Roboto, Arial, sans-serif",
+  },
 });
 
 // Styled components
@@ -41,11 +44,11 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 const FormBox = styled(Box)(({ theme }) => ({
-  backgroundColor: "rgba(255, 255, 255, 0.8)",
-  padding: theme.spacing(4),
+  backgroundColor: "rgba(255, 255, 255, 0.9)",
+  padding: theme.spacing(5),
   borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[5],
-  maxWidth: "400px",
+  boxShadow: theme.shadows[7],
+  maxWidth: "420px",
   width: "100%",
 }));
 
@@ -68,13 +71,23 @@ const Signin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [alert, setAlert] = useState({ severity: "", message: "", open: false });
+  const [alert, setAlert] = useState({
+    severity: "",
+    message: "",
+    open: false,
+  });
   const [loading, setLoading] = useState(false);
   const [verificationModal, setVerificationModal] = useState(false);
-  const [verificationCode, setVerificationCode] = useState(["", "", "", "", "", ""]);
+  const [verificationCode, setVerificationCode] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
   const [isCodeValid, setIsCodeValid] = useState(null); // null: no check, true: valid, false: invalid
 
-  // New login function to handle automatic login
   const loginUser = async () => {
     try {
       const response = await fetch(
@@ -100,7 +113,11 @@ const Signin = () => {
         localStorage.setItem("Data", encryptedData);
         navigate("/");
         window.location.reload();
-        setAlert({ severity: "success", message: "Login successful!", open: true });
+        setAlert({
+          severity: "success",
+          message: "Login successful!",
+          open: true,
+        });
       } else {
         setAlert({ severity: "error", message: data.message, open: true });
       }
@@ -115,8 +132,8 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading spinner
-  
+    setLoading(true);
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/v1/users/user-login`,
@@ -129,28 +146,28 @@ const Signin = () => {
           body: JSON.stringify({ email, password }),
         }
       );
-  
+
       const data = await response.json();
-      setLoading(false); // Stop loading spinner
-  
+      setLoading(false);
+
       if (response.ok) {
         const encryptedData = CryptoJS.AES.encrypt(
           JSON.stringify(data),
           `${import.meta.env.CRYPTO_SECRET}`
         ).toString();
-  
+
         localStorage.setItem("Data", encryptedData);
         navigate("/");
         window.location.reload();
         setAlert({ severity: "success", message: data.message, open: true });
-      } else if (data.message === "Account not verified. A new verification code has been sent to your email.") {
-        // Show alert first, then open modal after delay
+      } else if (
+        data.message ===
+        "Account not verified. A new verification code has been sent to your email."
+      ) {
         setAlert({ severity: "warning", message: data.message, open: true });
-        
         setTimeout(() => {
-          setVerificationModal(true); // Open verification modal if account not verified
-        }, 2000); // Adjust delay time as needed (e.g., 2000ms for 2 seconds)
-        
+          setVerificationModal(true);
+        }, 2000);
       } else {
         setAlert({ severity: "error", message: data.message, open: true });
       }
@@ -160,7 +177,7 @@ const Signin = () => {
         message: "An error occurred. Please try again later.",
         open: true,
       });
-      setLoading(false); // Stop loading spinner
+      setLoading(false);
     }
   };
 
@@ -193,12 +210,14 @@ const Signin = () => {
 
       if (response.ok) {
         setIsCodeValid(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Show green color briefly
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         setVerificationModal(false);
-        setAlert({ severity: "success", message: "Account verified successfully! Logging in...", open: true });
-        
-        // Automatically log in after successful verification
-        setTimeout(loginUser, 1000); // Call loginUser function after 1 second delay
+        setAlert({
+          severity: "success",
+          message: "Account verified successfully! Logging in...",
+          open: true,
+        });
+        setTimeout(loginUser, 1000);
       } else {
         setIsCodeValid(false);
         setAlert({
@@ -227,9 +246,7 @@ const Signin = () => {
   };
 
   useEffect(() => {
-    console.log("Verification Modal Status:", verificationModal); // Debug modal open status
-    window.scrollTo(0, 0);
-  }, [verificationModal]); // Add verificationModal as a dependency to track changes
+  }, [verificationModal]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -237,19 +254,28 @@ const Signin = () => {
       <StyledBox>
         <Container component="main" maxWidth="xs">
           {alert.open && (
-            <StyledAlert
-              severity={alert.severity}
-              onClose={handleToastClose}
-            >
+            <StyledAlert severity={alert.severity} onClose={handleToastClose}>
               <AlertTitle>
-                {alert.severity === "success" ? "Success" : alert.severity === "error" ? "Error" : "Warning"}
+                {alert.severity === "success"
+                  ? "Success"
+                  : alert.severity === "error"
+                  ? "Error"
+                  : "Warning"}
               </AlertTitle>
               {alert.message}
             </StyledAlert>
           )}
           <FormBox>
-            <Typography component="h1" variant="h5" align="center">
-              User Login
+            <Typography component="h1" variant="h6" align="center" gutterBottom className="text-blue-500">
+              Step into a Future You'll Love!
+            </Typography>
+            <Typography
+              component="h2"
+              variant="h6"
+              align="center"
+              color="textSecondary"
+            >
+              Login
             </Typography>
             <form onSubmit={handleSubmit}>
               <TextField
@@ -292,7 +318,6 @@ const Signin = () => {
           </FormBox>
         </Container>
 
-        {/* Verification Code Modal */}
         <Dialog
           open={verificationModal}
           TransitionComponent={Transition}
@@ -311,14 +336,20 @@ const Signin = () => {
                   type="text"
                   maxLength="1"
                   value={digit}
-                  onChange={(e) => handleVerificationCodeChange(index, e.target.value)}
+                  onChange={(e) =>
+                    handleVerificationCodeChange(index, e.target.value)
+                  }
                   style={{
                     width: "40px",
                     height: "40px",
                     textAlign: "center",
                     fontSize: "1.5rem",
                     border: `2px solid ${
-                      isCodeValid === true ? "green" : isCodeValid === false ? "red" : "#e0e0e0"
+                      isCodeValid === true
+                        ? "green"
+                        : isCodeValid === false
+                        ? "red"
+                        : "#e0e0e0"
                     }`,
                     borderRadius: "5px",
                     transition: "border-color 0.3s ease",

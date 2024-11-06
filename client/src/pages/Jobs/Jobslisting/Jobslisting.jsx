@@ -55,7 +55,6 @@ const JobListingArea = () => {
     };
 
     fetchJobs();
-    window.scrollTo(0, 0);
   }, [slug]);
 
   const handleLocationChange = (event) => {

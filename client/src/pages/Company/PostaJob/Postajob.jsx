@@ -228,10 +228,7 @@ const Postajob = () => {
     }),
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+ 
   return (
     <ThemeProvider theme={theme}>
       <BackgroundContainer>

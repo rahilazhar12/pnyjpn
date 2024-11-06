@@ -50,7 +50,7 @@ const Joblistingnew = () => {
     };
 
     fetchJobs();
-    window.scrollTo(0, 0);
+    
   }, [slug]);
 
   const handleLocationChange = (event) => {

@@ -4,12 +4,12 @@ import router from "./components/router/router.jsx";
 import "./index.css";
 import { SessionStorageProvider } from "./context/Sessionstorage.jsx";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; // Make sure to include the styles
+import "react-toastify/dist/ReactToastify.css"; // Make sure to include the styles
 
 createRoot(document.getElementById("root")).render(
   <SessionStorageProvider>
     <RouterProvider router={router} />
-    <ToastContainer 
+    <ToastContainer
       position="top-right" // Change position if needed
       autoClose={5000} // Set auto-close timeout in ms
       hideProgressBar={false} // Show progress bar

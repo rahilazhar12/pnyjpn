@@ -32,121 +32,121 @@ const Browsesector = () => {
       name: "Design & Creative",
       slug: "design-creative",
       apiName: "design-creative",
-      icon: <FaPenNib className="text-pink-400 md:text-6xl" />,
+      icon: <FaPenNib className="text-pb md:text-6xl" />,
     },
     {
       name: "Design & Development",
       slug: "design-development",
       apiName: "design-development",
-      icon: <FaCode className="text-pink-400 md:text-6xl" />,
+      icon: <FaCode className="text-pb md:text-6xl" />,
     },
     {
       name: "Sales & Marketing",
       slug: "sales-marketing",
       apiName: "sales-marketing",
-      icon: <FaChartLine className="text-pink-400 md:text-6xl" />,
+      icon: <FaChartLine className="text-pb md:text-6xl" />,
     },
     {
       name: "Mobile Application",
       slug: "mobile-application",
       apiName: "mobile-application",
-      icon: <FaMobileAlt className="text-pink-400 md:text-6xl" />,
+      icon: <FaMobileAlt className="text-pb md:text-6xl" />,
     },
     {
       name: "Construction",
       slug: "construction",
       apiName: "construction",
-      icon: <FaHardHat className="text-pink-400 md:text-6xl" />,
+      icon: <FaHardHat className="text-pb md:text-6xl" />,
     },
     {
       name: "Information Technology",
       slug: "information-technology",
       apiName: "information-technology",
-      icon: <FaLaptopCode className="text-pink-400 md:text-6xl" />,
+      icon: <FaLaptopCode className="text-pb md:text-6xl" />,
     },
     {
       name: "Real Estate",
       slug: "real-estate",
       apiName: "real-estate",
-      icon: <FaBuilding className="text-pink-400 md:text-6xl" />,
+      icon: <FaBuilding className="text-pb md:text-6xl" />,
     },
     {
       name: "Content Writer",
       slug: "content-writer",
       apiName: "content-writer",
-      icon: <FaFileAlt className="text-pink-400 md:text-6xl" />,
+      icon: <FaFileAlt className="text-pb md:text-6xl" />,
     },
     {
       name: "Finance & Accounting",
       slug: "finance-accounting",
       apiName: "finance-accounting",
-      icon: <FaMoneyBillAlt className="text-pink-400 md:text-6xl" />,
+      icon: <FaMoneyBillAlt className="text-pb md:text-6xl" />,
     },
     {
       name: "Customer Service",
       slug: "customer-service",
       apiName: "customer-service",
-      icon: <FaHeadset className="text-pink-400 md:text-6xl" />,
+      icon: <FaHeadset className="text-pb md:text-6xl" />,
     },
     {
       name: "Healthcare & Medical",
       slug: "healthcare-medical",
       apiName: "healthcare-medical",
-      icon: <FaStethoscope className="text-pink-400 md:text-6xl" />,
+      icon: <FaStethoscope className="text-pb md:text-6xl" />,
     },
     {
       name: "Engineering",
       slug: "engineering",
       apiName: "engineering",
-      icon: <FaCog className="text-pink-400 md:text-6xl" />,
+      icon: <FaCog className="text-pb md:text-6xl" />,
     },
     {
       name: "Education & Training",
       slug: "education-training",
       apiName: "education-training",
-      icon: <FaChalkboardTeacher className="text-pink-400 md:text-6xl" />,
+      icon: <FaChalkboardTeacher className="text-pb md:text-6xl" />,
     },
     {
       name: "Human Resources",
       slug: "human-resources",
       apiName: "human-resources",
-      icon: <FaUsers className="text-pink-400 md:text-6xl" />,
+      icon: <FaUsers className="text-pb md:text-6xl" />,
     },
     {
       name: "Administrative & Clerical",
       slug: "administrative-clerical",
       apiName: "administrative-clerical",
-      icon: <FaFileAlt className="text-pink-400 md:text-6xl" />,
+      icon: <FaFileAlt className="text-pb md:text-6xl" />,
     },
     {
       name: "Legal",
       slug: "legal",
       apiName: "legal",
-      icon: <FaIndustry className="text-pink-400 md:text-6xl" />,
+      icon: <FaIndustry className="text-pb md:text-6xl" />,
     },
     {
       name: "Manufacturing & Operations",
       slug: "manufacturing-operations",
       apiName: "manufacturing-operations",
-      icon: <FaIndustry className="text-pink-400 md:text-6xl" />,
+      icon: <FaIndustry className="text-pb md:text-6xl" />,
     },
     {
       name: "Project Management",
       slug: "project-management",
       apiName: "project-management",
-      icon: <FaTasks className="text-pink-400 md:text-6xl" />,
+      icon: <FaTasks className="text-pb md:text-6xl" />,
     },
     {
       name: "Logistics & Supply Chain",
       slug: "logistics-supply-chain",
       apiName: "logistics-supply-chain",
-      icon: <FaTruck className="text-pink-400 md:text-6xl" />,
+      icon: <FaTruck className="text-pb md:text-6xl" />,
     },
     {
       name: "Retail & E-commerce",
       slug: "retail-ecommerce",
       apiName: "retail-ecommerce",
-      icon: <FaShoppingCart className="text-pink-400 md:text-6xl" />,
+      icon: <FaShoppingCart className="text-pb md:text-6xl" />,
     },
   ];
 
@@ -178,7 +178,7 @@ const Browsesector = () => {
         <div className="container mx-auto px-4">
           {/* Section Title */}
           <div className="text-center mb-10">
-            <span className="text-pink-600 uppercase">All Categories</span>
+            <span className="text-pr text-2xl uppercase">All Categories</span>
           </div>
           {/* Categories Grid */}
           {loading ? (
@@ -194,7 +194,7 @@ const Browsesector = () => {
                       {category.icon}
                     </div>
                     <h5 className="text-lg">{category.name}</h5>
-                    <span className="text-pink-600">
+                    <span className="text-pr">
                       (
                       {jobCounts[category.slug] !== undefined
                         ? jobCounts[category.slug]

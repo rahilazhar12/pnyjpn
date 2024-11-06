@@ -20,49 +20,49 @@ const Featured = () => {
       name: "Design & Creative",
       slug: "design-creative",
       apiName: "design-creative",
-      icon: <FaPenNib className="text-pink-400 md:text-6xl" />,
+      icon: <FaPenNib className="text-pb md:text-6xl" />,
     },
     {
       name: "Design & Development",
       slug: "design-development",
       apiName: "design-development",
-      icon: <FaCode className="text-pink-400 md:text-6xl" />,
+      icon: <FaCode className="text-pb md:text-6xl" />,
     },
     {
       name: "Sales & Marketing",
       slug: "sales-marketing",
       apiName: "sales-marketing",
-      icon: <FaChartLine className="text-pink-400 md:text-6xl" />,
+      icon: <FaChartLine className="text-pb md:text-6xl" />,
     },
     {
       name: "Mobile Application",
       slug: "mobile-application",
       apiName: "mobile-application",
-      icon: <FaMobileAlt className="text-pink-400 md:text-6xl" />,
+      icon: <FaMobileAlt className="text-pb md:text-6xl" />,
     },
     {
       name: "Construction",
       slug: "construction",
       apiName: "construction",
-      icon: <FaHardHat className="text-pink-400 md:text-6xl" />,
+      icon: <FaHardHat className="text-pb md:text-6xl" />,
     },
     {
       name: "Information Technology",
       slug: "information-technology",
       apiName: "information-technology",
-      icon: <FaLaptopCode className="text-pink-400 md:text-6xl" />,
+      icon: <FaLaptopCode className="text-pb md:text-6xl" />,
     },
     {
       name: "Real Estate",
       slug: "real-estate",
       apiName: "real-estate",
-      icon: <FaBuilding className="text-pink-400 md:text-6xl" />,
+      icon: <FaBuilding className="text-pb md:text-6xl" />,
     },
     {
       name: "Content Writer",
       slug: "content-writer",
       apiName: "content-writer",
-      icon: <FaFileAlt className="text-pink-400 md:text-6xl" />,
+      icon: <FaFileAlt className="text-pb md:text-6xl" />,
     },
   ];
 
@@ -99,7 +99,7 @@ const Featured = () => {
                     {category.icon}
                   </div>
                   <h5 className="text-lg">{category.name}</h5>
-                  <span className="text-pink-600">
+                  <span className="text-pr">
                     (
                     {jobCounts[category.slug] !== undefined
                       ? jobCounts[category.slug]
@@ -114,8 +114,7 @@ const Featured = () => {
           <div className="text-center mt-24">
             <Link
               to="/all-categories"
-              className="bg-pink-400 px-7 py-3 hover:text-white"
-            >
+              className="bg-pb px-7 py-3 text-white">
               Browse All Sectors
             </Link>
           </div>

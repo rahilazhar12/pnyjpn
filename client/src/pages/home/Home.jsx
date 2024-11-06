@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Home.css";
 import Featured from "./Featured";
 import sirwahab from "../../assets/img/hero/h1_hero.jpg";
-import resumebg from "../../assets/img/gallery/cv_bg.jpg";
 import { useSessionStorage } from "../../context/Sessionstorage";
 import { useNavigate } from "react-router-dom";
 import {
@@ -41,9 +40,7 @@ const Home = () => {
     navigate("/login-users"); // Redirect to login page
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+ 
 
   // Define states for inputs and suggestions
   const [jobTitle, setJobTitle] = useState("");
@@ -121,9 +118,10 @@ const Home = () => {
         <div className="absolute inset-0 bg-white bg-opacity-0" />
 
         <div className="relative z-10 flex flex-col justify-center items-center md:items-start h-full px-4 lg:px-16 text-center md:text-left">
-          <h1 className="text-4xl lg:text-8xl font-bold text-gray-900 mb-6 lg:w-[1000px] leading-tight">
-            Find the most exciting <br />
-            startup jobs
+          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 lg:w-[1000px] leading-tight">
+            Shape Your Future Discover Opportunities with
+            <br />
+            PNY Career
           </h1>
 
           {/* Search Inputs Section */}
@@ -135,7 +133,7 @@ const Home = () => {
                 placeholder="Job Title or Keyword"
                 value={jobTitle}
                 onChange={handleJobTitleChange}
-                className="px-4 py-3 w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="px-4 py-3 w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pb"
               />
               {jobTitle && (
                 <ul className="absolute bg-white border border-gray-300 w-full z-10 max-h-40 overflow-y-auto">
@@ -164,7 +162,7 @@ const Home = () => {
                 placeholder="Location BD"
                 value={jobLocation}
                 onChange={handleJobLocationChange}
-                className="px-4 py-3 w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="px-4 py-3 w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pb"
               />
               {jobLocation && (
                 <ul className="absolute bg-white border border-gray-300 w-full z-10 max-h-40 overflow-y-auto">
@@ -189,7 +187,7 @@ const Home = () => {
             {/* Find Job Button */}
             <button
               onClick={handleJobSearch}
-              className="px-8 py-3 bg-pink-500 text-white font-semibold hover:bg-pink-600 whitespace-nowrap w-full md:w-auto"
+              className="px-8 py-3 bg-pb text-white font-semibold hover:bg-sr whitespace-nowrap w-full md:w-auto"
             >
               Find Job
             </button>
