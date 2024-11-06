@@ -14,6 +14,7 @@ import {
   LinkedinIcon,
   WhatsappIcon,
 } from "react-share";
+import ad from "../../../assets/img/logo/ad.jpg";
 
 const JobPage = () => {
   const { id } = useParams(); // Getting the job ID from the slug in the URL
@@ -95,15 +96,15 @@ const JobPage = () => {
     }
   };
 
-  const projectUrl = `http://localhost:5173/job_details/${id}`; // Replace with actual job URL
-  const projectTitle = `${jobData.jobTitle}`; // Replace with actual job title
+  const projectUrl = `https://pnycareer.com/job_details/${id}`; // Ensure URL is valid with no extra slashes
+  const projectTitle = `${jobData.jobTitle}`;
 
   return (
     <div className="flex flex-col md:flex-row gap-6 p-4 md:px-10 lg:px-24 bg-gray-200">
       {/* Left Section */}
       <div className="w-full md:w-2/3 bg-white shadow-lg rounded-lg px-6 py-4">
         {/* Sticky Section from Title to Tabs */}
-        <div className="md:sticky top-20 bg-white z-10  border-b border-gray-200">
+        <div className="md:sticky top-20 bg-white z-10 border-b border-gray-200">
           {/* Job Title and Company Logo */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between ">
             <div>
@@ -215,7 +216,6 @@ const JobPage = () => {
               ));
             })}
           </div>
-          {/* Additional unordered list for skills */}
         </div>
 
         {/* Conditional Content */}
@@ -224,25 +224,15 @@ const JobPage = () => {
             <div>
               <h2 className="text-xl font-semibold mb-2">Project Detail</h2>
               <p className="text-gray-700 mb-4">{jobData.description}</p>
-              {/* <ul className="list-disc list-inside mb-6">
-                <li>Design: Figma designs are already prepared.</li>
-                <li>Timeline: Complete the project within 2.5 months.</li>
-                <li>Complexity: Medium complexity.</li>
-              </ul> */}
 
               {/* Additional Details Section */}
               <div className="mt-4">
                 <h2 className="text-xl font-semibold mb-2">Compensation</h2>
-                {/* <p className="text-gray-700 mb-4">
-                  The total project payment is set at 400,000.
-                </p> */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-gray-700">
                   <div className="font-semibold">Location:</div>
                   <div>{jobData.jobLocation}</div>
                   <div className="font-semibold">Compensation:</div>
                   <div>PKR {jobData.maxPrice}</div>
-                  {/* <div className="font-semibold">Project Type:</div>
-                  <div>Work From Home</div> */}
                 </div>
               </div>
             </div>
@@ -260,14 +250,45 @@ const JobPage = () => {
       </div>
 
       {/* Right Section (Advertisements) */}
-      <div className="w-full md:w-1/3 flex flex-col gap-4">
+      <div className="w-full md:w-1/4 flex flex-col gap-4">
         <div className="bg-white shadow-lg rounded-lg p-4">
-          <img
-            src="path-to-ad1.jpg"
-            alt="Ad 1"
-            className="w-full h-32 object-cover rounded-md mb-2"
-          />
-          <p className="text-gray-700">Muzammil Baig - Digital Marketing</p>
+          <a
+            href="https://www.pnytrainings.com/digital-media-marketing-courses"
+            target="_blank"
+          >
+            <img
+              src={ad}
+              alt="Ad 1"
+              className="w-full object-cover rounded-md mb-2"
+            />
+          </a>
+          <p className="text-gray-700 text-center">Digital Media Marketing</p>
+        </div>
+        <div className="bg-white shadow-lg rounded-lg p-4">
+          <a
+            href="https://www.pnytrainings.com/digital-media-marketing-courses"
+            target="_blank"
+          >
+            <img
+              src={ad}
+              alt="Ad 1"
+              className="w-full object-cover rounded-md mb-2"
+            />
+          </a>
+          <p className="text-gray-700 text-center">Digital Media Marketing</p>
+        </div>
+        <div className="bg-white shadow-lg rounded-lg p-4">
+          <a
+            href="https://www.pnytrainings.com/digital-media-marketing-courses"
+            target="_blank"
+          >
+            <img
+              src={ad}
+              alt="Ad 1"
+              className="w-full object-cover rounded-md mb-2"
+            />
+          </a>
+          <p className="text-gray-700 text-center">Digital Media Marketing</p>
         </div>
       </div>
     </div>
