@@ -52,9 +52,11 @@ const AdminLogin = () => {
           `${import.meta.env.VITE_CRYPTO_SECRET}`
         ).toString();
         localStorage.setItem("Data", encryptedData);
-        navigate("/admin-dashboard");
-        window.location.reload();
-
+        if (data.role === "admin") {
+          navigate("/admin-dashboard");
+        } else {
+          navigate("/404"); // Or any restricted access page
+        }
         setSnackbar({
           open: true,
           message: "Login successful!",
