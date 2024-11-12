@@ -42,7 +42,7 @@ exports.getJobsList = async (req, res) => {
     }
 
     const jobs = await Jobs.find();
-    return res.status(200).json({ success: true, jobs: jobs || [] }); // Ensure jobs is always an array
+    return res.status(200).json(jobs); // Ensure jobs is always an array
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: "Error fetching jobs", error });

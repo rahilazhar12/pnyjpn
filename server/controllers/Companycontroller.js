@@ -144,8 +144,34 @@ const Logoutcompany = (req, res) => {
 
 
 
+// const approvecompanyrequest = async (req, res) => {
+//     const { status } = req.body; // Assuming 'status' can be 'approved' or 'rejected'
+
+//     try {
+//         const company = await Company.findById(req.params.id);
+
+//         if (!company) {
+//             return res.status(404).json({ message: "Company not found." });
+//         }
+
+//         if (status === "approved") {
+//             company.isApproved = true;
+//             await company.save();
+//             res.status(200).json({ message: "Company approved successfully." });
+//         } else if (status === "rejected") {
+//             // Delete the company record if the admin rejects the request
+//             await Company.findByIdAndDelete(req.params.id);
+//             res.status(200).json({ message: "Company rejected and deleted successfully." });
+//         } else {
+//             res.status(400).json({ message: "Invalid status. Please specify 'approved' or 'rejected'." });
+//         }
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// }
+
 const approvecompanyrequest = async (req, res) => {
-    const { status } = req.body; // Assuming 'status' can be 'approved' or 'rejected'
+    const { status } = req.body; // Assuming 'status' is a boolean or 'rejected'
 
     try {
         const company = await Company.findById(req.params.id);
@@ -154,23 +180,39 @@ const approvecompanyrequest = async (req, res) => {
             return res.status(404).json({ message: "Company not found." });
         }
 
-        if (status === "approved") {
+        if (status === "true") {
             company.isApproved = true;
             await company.save();
             res.status(200).json({ message: "Company approved successfully." });
+        } else if (status === "false") {
+            company.isApproved = false;
+            await company.save();
+            res.status(200).json({ message: "Company approval set to false." });
         } else if (status === "rejected") {
             // Delete the company record if the admin rejects the request
             await Company.findByIdAndDelete(req.params.id);
             res.status(200).json({ message: "Company rejected and deleted successfully." });
         } else {
-            res.status(400).json({ message: "Invalid status. Please specify 'approved' or 'rejected'." });
+            res.status(400).json({ message: "Invalid status. Please specify 'true', 'false', or 'rejected'." });
         }
     } catch (error) {
         res.status(400).json({ message: error.message });
+    }
+};
+
+
+
+
+const Getallcompanies = async (req, res) => {
+    try {
+        const companies = await Company.find();
+        res.status(200).json(companies);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving companies', error: error.message });
     }
 }
 
 
 
 
-module.exports = { CreateCompany, VerifyCompany, approvecompanyrequest, LoginCompany, Logoutcompany }
+module.exports = { CreateCompany, VerifyCompany, approvecompanyrequest, LoginCompany, Logoutcompany, Getallcompanies }

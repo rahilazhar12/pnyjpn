@@ -18,7 +18,7 @@ const { sendEmail } = require("./utils/emailService.js");
 
 // rest object
 const app = express();
-const allowedOrigins = ['https://pnycareer.com', 'http://localhost:5173'];
+const allowedOrigins = ['https://pnycareer.com', "https://www.pnycareer.com", 'http://localhost:5173'];
 
 app.use(
   cors({

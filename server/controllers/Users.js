@@ -359,6 +359,25 @@ const updateProfile = async (req, res) => {
     }
 };
 
+
+const Getallusers = async (req, res) => {
+    try {
+        const companies = await Userschema.find();
+        res.status(200).json(companies);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving companies', error: error.message });
+    }
+}
+const Getallpnyalumini = async (req, res) => {
+    try {
+        const companies = await PNYAlumniSchema.find();
+        res.status(200).json(companies);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving companies', error: error.message });
+    }
+}
+
+
 module.exports = {
     UserRegistration,
     UserLogin,
@@ -367,4 +386,6 @@ module.exports = {
     updateProfile,
     GetUsers,
     verifyCode,
+    Getallusers,
+    Getallpnyalumini
 };

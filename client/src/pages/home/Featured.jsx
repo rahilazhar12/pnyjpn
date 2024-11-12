@@ -11,6 +11,7 @@ import {
   FaFileAlt,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Jobslider from "../../components/Jobslider/Jobslider";
 
 const Featured = () => {
   const [jobCounts, setJobCounts] = useState({}); // State to hold job counts for each category
@@ -112,15 +113,17 @@ const Featured = () => {
           </div>
           {/* Browse All Button */}
           <div className="text-center mt-24">
-            <Link
-              to="/all-categories"
-              className="bg-pb px-7 py-3 text-white">
+            <Link to="/all-categories" className="bg-pb px-7 py-3 text-white">
               Browse All Sectors
             </Link>
           </div>
         </div>
       </section>
       {/* Featured Tours End */}
+
+      <div>
+        <Jobslider />
+      </div>
     </>
   );
 };
