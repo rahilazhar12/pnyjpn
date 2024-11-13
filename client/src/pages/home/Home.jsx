@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Home.css";
 import Featured from "./Featured";
-import sirwahab from "../../assets/img/hero/h1_hero.jpg";
+import homebg from "../../assets/img/backgrounds/homebg.webp";
 import { useSessionStorage } from "../../context/Sessionstorage";
 import { useNavigate } from "react-router-dom";
 import {
@@ -39,8 +39,6 @@ const Home = () => {
   const handleLoginRedirect = () => {
     navigate("/login-users"); // Redirect to login page
   };
-
- 
 
   // Define states for inputs and suggestions
   const [jobTitle, setJobTitle] = useState("");
@@ -112,20 +110,27 @@ const Home = () => {
   return (
     <>
       <section
-        className="relative h-screen bg-cover bg-center"
-        style={{ backgroundImage: `url(${sirwahab})` }}
+        className="relative h-screen bg-cover bg-center flex flex-col justify-center items-center text-center"
+        style={{ backgroundImage: `url(${homebg})` }}
       >
-        <div className="absolute inset-0 bg-white bg-opacity-0" />
+        {/* Blurred Background Overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-[1px]" />
+        <div className="relative z-10 flex flex-col justify-center items-center h-full px-4 lg:px-16 text-center mb-17">
+          <div className="tagline text-center text-3xl font-bold">
+            <span>
+              <span className="text-white">Find a career you</span>{" "}
+              <span style={{ color: "#e63946" }}>love ❤️</span>{" "}
+            </span>
+          </div>
 
-        <div className="relative z-10 flex flex-col justify-center items-center md:items-start h-full px-4 lg:px-16 text-center md:text-left">
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 lg:w-[1000px] leading-tight">
-            Shape Your Future Discover Opportunities with
+          <h1 className="text-2xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            Shape Your Future <span className="text-4xl">&</span> Discover Opportunities with
             <br />
             PNY Career
           </h1>
 
           {/* Search Inputs Section */}
-          <div className="flex flex-col md:flex-row md:flex-nowrap mt-4 md:mt-8 space-y-4 md:space-y-0 md:space-x-4 w-full max-w-lg xl:max-w-3xl">
+          <div className="flex flex-col md:flex-row md:flex-nowrap mt-4 space-y-4 md:space-y-0 md:space-x-4 w-full max-w-lg xl:max-w-3xl">
             {/* Job Title Input */}
             <div className="relative w-full">
               <input

@@ -94,9 +94,15 @@ const Navbar = () => {
               <>
                 <Link 
                   to="/post-jobs" 
-                  className="px-4 py-2 text-sb  transition duration-300 ease-in-out"
+                  className="px-4 py-2 text-black  transition duration-300 ease-in-out"
                 >
                   Post Jobs
+                </Link>
+                <Link 
+                  to="/company-profile" 
+                  className="px-4 py-2 text-black  transition duration-300 ease-in-out"
+                >
+                  Profile
                 </Link>
               </>
             )}

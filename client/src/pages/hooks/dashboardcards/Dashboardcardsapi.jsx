@@ -13,17 +13,17 @@ const Dashboardcardsapi = () => {
     const fetchData = async () => {
       try {
         const [companiesRes, usersRes, alumniRes, jobs] = await Promise.all([
-          fetch("http://localhost:8000/api/v1/company/get-all-companies").then(
+          fetch(
+            `${import.meta.env.VITE_API_URL}/api/v1/company/get-all-companies`
+          ).then((res) => res.json()),
+          fetch(
+            `${import.meta.env.VITE_API_URL}/api/v1/users/get-all-users`
+          ).then((res) => res.json()),
+          fetch(
+            `${import.meta.env.VITE_API_URL}/api/v1/users/get-all-pnyalumini`
+          ).then((res) => res.json()),
+          fetch(`${import.meta.env.VITE_API_URL}/api/v1/jobs/getjobs`).then(
             (res) => res.json()
-          ),
-          fetch("http://localhost:8000/api/v1/users/get-all-users").then(
-            (res) => res.json()
-          ),
-          fetch("http://localhost:8000/api/v1/users/get-all-pnyalumini").then(
-            (res) => res.json()
-          ),
-          fetch("http://localhost:8000/api/v1/jobs/getjobs").then((res) =>
-            res.json()
           ),
         ]);
 

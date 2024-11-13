@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/profile/profile";
-import Sidebar from "../pages/dashboard/Admindashboard";
+import Sidebar from "../pages/dashboard/Sidebar";
 import { Outlet } from "react-router-dom";
 
 const DefaultLayout = ({ children }) => {

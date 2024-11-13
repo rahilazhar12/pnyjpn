@@ -36,9 +36,7 @@ const Signin = lazy(() => import("../../pages/Userauth/Signin"));
 const AdminLogin = lazy(() =>
   import("../../pages/admin/adminlogin/Adminlogin")
 );
-const Admindashboard = lazy(() =>
-  import("../../pages/dashboard/Admindashboard")
-);
+const Admindashboard = lazy(() => import("../../pages/dashboard/Sidebar"));
 const Allcompanies = lazy(() =>
   import("../../pages/Company/dashboard/Allcompanies")
 );
