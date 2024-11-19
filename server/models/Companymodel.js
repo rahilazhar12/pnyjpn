@@ -6,6 +6,10 @@ const CompanySchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        about: {
+            type: String,
+            required: true
+        },
         ntnnumber: {
             type: String,
             required: true

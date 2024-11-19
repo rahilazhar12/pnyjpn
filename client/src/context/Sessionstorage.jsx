@@ -16,7 +16,7 @@ export const SessionStorageProvider = ({ children }) => {
       try {
         const bytes = CryptoJS.AES.decrypt(
           encryptedData,
-          `${import.meta.env.CRYPTO_SECRET}`
+          `${import.meta.env.VITE_CRYPTO_SECRET}` // Corrected environment variable syntax
         );
         const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         setUser(decryptedData);
@@ -28,14 +28,37 @@ export const SessionStorageProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem("Data");
-    setUser(null);
-    setRole(null);
+  const logout = async () => {
+    try {
+      // Call the logout API
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/v1/users/logoutuser`,
+        {
+          method: "POST",
+          credentials: "include", // Ensure cookies are sent with the request
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        // Clear localStorage and update state
+        localStorage.removeItem("Data");
+        setUser(null);
+        setRole(null);
+      } else {
+        console.error("Logout failed", await response.json());
+      }
+    } catch (error) {
+      console.error("Error logging out", error);
+    }
   };
 
   return (
-    <UserContext.Provider value={{ user, role, loading, setUser, setRole, logout }}>
+    <UserContext.Provider
+      value={{ user, role, loading, setUser, setRole, logout }}
+    >
       {children}
     </UserContext.Provider>
   );

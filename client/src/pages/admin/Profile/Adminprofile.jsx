@@ -1,6 +1,6 @@
 import React from "react";
 
-const Userprofile = () => {
+const Adminprofile = () => {
   return (
     <>
       <section className="relative pt-36 pb-24">
@@ -107,10 +107,10 @@ const Userprofile = () => {
             </div>
           </div>
           <h3 className="text-center font-manrope font-bold text-3xl leading-10 text-gray-900 mb-3">
-            Jenny Wilson
+            Husnain Mustafa
           </h3>
           <p className="font-normal text-base leading-7 text-gray-500 text-center mb-8">
-            A social media influencers and singer
+            Hr Pny Group of Companies
           </p>
           <div className="flex items-center justify-center gap-5">
             <a
@@ -271,4 +271,4 @@ const Userprofile = () => {
   );
 };
 
-export default Userprofile;
+export default Adminprofile;

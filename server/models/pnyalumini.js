@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const PNYAlumniSchema = new mongoose.Schema({
+const PNYAlumniSchema = new mongoose.Schema(
+  {
     name: { type: String },
     email: { type: String },
     password: { type: String },
@@ -10,9 +11,12 @@ const PNYAlumniSchema = new mongoose.Schema({
     batchNo: { type: String },
     courseName: { type: String },
     verificationCode: { type: String },
-    isVerified: { type: Boolean, default: false }
-}, { 
-    timestamps: true // Automatically adds `createdAt` and `updatedAt`
-});
+    isVerified: { type: Boolean, default: false },
+    profilePicture: { type: String }, // Add this field
+  },
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = mongoose.model("pnyalumini", PNYAlumniSchema);

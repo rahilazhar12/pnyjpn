@@ -97,12 +97,12 @@ const JobListingArea = () => {
 
   const applyForJob = async (jobId) => {
     if (loadingJobId) return; // Prevent further clicks while loading
-  
+
     setLoadingJobId(jobId); // Set loading state for this job
-  
+
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/users/jobs/apply/${jobId}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/users/jobs/apply/${jobId}`,
         {
           method: "POST",
           headers: {
@@ -111,12 +111,12 @@ const JobListingArea = () => {
           credentials: "include",
         }
       );
-  
+
       const result = await response.json();
-  
+
       // Dismiss any active toasts before showing a new one
       toast.dismiss();
-  
+
       if (response.ok) {
         toast.success("Application submitted successfully!");
         // navigate("/applications"); // You can enable navigation if needed
@@ -131,7 +131,6 @@ const JobListingArea = () => {
       setLoadingJobId(null); // Reset the loading state once the request is completed
     }
   };
-  
 
   return (
     <div className="job-listing-area bg-gray-100 pt-12 pb-12">

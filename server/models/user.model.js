@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     name: { type: String },
     email: { type: String },
     password: { type: String },
@@ -8,9 +9,12 @@ const UserSchema = new mongoose.Schema({
     city: { type: String },
     role: { type: String, default: "User" },
     verificationCode: { type: String },
-    isVerified: { type: Boolean, default: false }
-}, { 
-    timestamps: true // This will automatically add `createdAt` and `updatedAt` fields
-});
+    isVerified: { type: Boolean, default: false },
+    profilePicture: { type: String }, // Add this field
+  },
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = mongoose.model("users", UserSchema);

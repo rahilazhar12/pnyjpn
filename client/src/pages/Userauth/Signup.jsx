@@ -27,17 +27,6 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import userbgimage from "../../assets/img/backgrounds/userbg.jpg";
 
-// Custom pink theme
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#e91e63",
-    },
-  },
-  typography: {
-    fontFamily: "Roboto, sans-serif",
-  },
-});
 
 // Transition for modal
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -76,9 +65,6 @@ export default function StudentRegistrationForm() {
     }
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();

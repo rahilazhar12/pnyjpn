@@ -12,6 +12,10 @@ import ScrollToTop from "../scrolltotop/ScrollToTop";
 import Maindashboard from "../../pages/dashboard/Maindashboard";
 import Allusers from "../../pages/Userauth/dashboard/Allusers";
 import DefaultLayout from "../../layout/Dashboardlayout";
+import Alljobs from "../../pages/Jobs/dashboard/Alljobs";
+import Allaluminis from "../../pages/aluminis/dashboard/Allaluminis";
+import Adminprofile from "../../pages/admin/Profile/Adminprofile";
+import Profile from "../../pages/Userauth/settings/profile";
 
 // Lazy loaded components
 const Home = lazy(() => import("../../pages/home/Home"));
@@ -78,6 +82,7 @@ const router = createBrowserRouter([
       { path: "register-student", element: <StudentRegistrationForm /> },
       { path: "login-users", element: <Signin /> },
       { path: "user_profile/:id", element: <Userprofile /> },
+      { path: "settings", element: <Profile /> },
       {
         path: "new-profile",
         element: (
@@ -105,6 +110,8 @@ const router = createBrowserRouter([
     element: <Restricted />,
   },
 
+  // Dashboard Routes
+
   {
     path: "/admin-dashboard",
     element: (
@@ -119,6 +126,9 @@ const router = createBrowserRouter([
       { index: true, element: <Maindashboard /> },
       { path: "companies", element: <Allcompanies /> },
       { path: "users", element: <Allusers /> },
+      { path: "jobs", element: <Alljobs /> },
+      { path: "aluminis", element: <Allaluminis /> },
+      { path: "admin-profile", element: <Adminprofile /> },
     ],
   },
 ]);

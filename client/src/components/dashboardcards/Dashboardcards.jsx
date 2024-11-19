@@ -28,47 +28,53 @@ const Dashboardcards = () => {
           </div>
         </Link>
 
-        <div className="bg-green-500 p-4 rounded">
-          <div className="flex items-center">
-            <span className="p-2 mr-3 rounded border">
-              <FaRegUser className="text-white text-2xl" />
-            </span>
-            <div className="ml-auto text-right">
-              <p className="text-lg text-white mb-1">Total Users</p>
-              <span className="text-5xl text-white font-semibold">
-                {data.totalUsers !== null ? data.totalUsers : 0}
+        <Link to="/admin-dashboard/users">
+          <div className="bg-green-500 p-4 rounded">
+            <div className="flex items-center">
+              <span className="p-2 mr-3 rounded border">
+                <FaRegUser className="text-white text-2xl" />
               </span>
+              <div className="ml-auto text-right">
+                <p className="text-lg text-white mb-1">Total Users</p>
+                <span className="text-5xl text-white font-semibold">
+                  {data.totalUsers !== null ? data.totalUsers : 0}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
 
-        <div className="bg-yellow-500 p-4 rounded">
-          <div className="flex items-center">
-            <span className="p-2 mr-3 rounded border">
-              <FaUsers className="text-white text-2xl" />
-            </span>
-            <div className="ml-auto text-right">
-              <p className="text-lg text-white mb-1">Alumni Count</p>
-              <span className="text-5xl text-white font-semibold">
-                {data.alumniCount !== null ? data.alumniCount : 0}
+        <Link to="/admin-dashboard/aluminis">
+          <div className="bg-yellow-500 p-4 rounded">
+            <div className="flex items-center">
+              <span className="p-2 mr-3 rounded border">
+                <FaUsers className="text-white text-2xl" />
               </span>
+              <div className="ml-auto text-right">
+                <p className="text-lg text-white mb-1">Alumni Count</p>
+                <span className="text-5xl text-white font-semibold">
+                  {data.alumniCount !== null ? data.alumniCount : 0}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
 
-        <div className="bg-red-500 p-4 rounded">
-          <div className="flex items-center">
-            <span className="p-2 mr-3 rounded border">
-              <FaBriefcase className="text-white text-2xl" />
-            </span>
-            <div className="ml-auto text-right">
-              <p className="text-lg text-white mb-1">Total Jobs</p>
-              <span className="text-5xl text-white font-semibold">
-                {data.jobs !== null ? data.jobs : 0}
+        <Link to="/admin-dashboard/jobs">
+          <div className="bg-red-500 p-4 rounded">
+            <div className="flex items-center">
+              <span className="p-2 mr-3 rounded border">
+                <FaBriefcase className="text-white text-2xl" />
               </span>
+              <div className="ml-auto text-right">
+                <p className="text-lg text-white mb-1">Total Jobs</p>
+                <span className="text-5xl text-white font-semibold">
+                  {data.jobs !== null ? data.jobs : 0}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     </>
   );

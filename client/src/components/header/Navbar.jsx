@@ -13,6 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import DropdownUser from "../profile/Dropdownuser";
 
 const Navbar = () => {
   const { user, role, logout } = useSessionStorage();
@@ -69,7 +70,7 @@ const Navbar = () => {
         <div className="container mx-auto px-4 lg:px-16 py-4 flex items-center justify-between">
           <div className="flex items-center">
             <Link to="/">
-              <img src={logo} alt="Logo" className="w-16" />
+              <img src={logo} alt="Logo" className="w-20" />
             </Link>
             <div className="hidden lg:block">
               <h1 className="text-sm font-bold text-blue-500">Job Finder</h1>
@@ -84,7 +85,7 @@ const Navbar = () => {
               <>
                 <Link
                   to="/new-profile"
-                  className="px-4 py-2 text-sb transition duration-300 ease-in-out"
+                  className="px-4 py-2 text-black transition duration-300 ease-in-out"
                 >
                   Profile
                 </Link>
@@ -92,14 +93,14 @@ const Navbar = () => {
             )}
             {role === "company" && (
               <>
-                <Link 
-                  to="/post-jobs" 
+                <Link
+                  to="/post-jobs"
                   className="px-4 py-2 text-black  transition duration-300 ease-in-out"
                 >
                   Post Jobs
                 </Link>
-                <Link 
-                  to="/company-profile" 
+                <Link
+                  to="/company-profile"
                   className="px-4 py-2 text-black  transition duration-300 ease-in-out"
                 >
                   Profile
@@ -110,7 +111,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex space-x-4">
             {user ? (
-              <Link onClick={logouthandler}>Logout</Link>
+              <DropdownUser />
             ) : (
               <>
                 <Button
@@ -127,10 +128,16 @@ const Navbar = () => {
                   Login
                 </Button>
 
-                <Link className="border border-pb hover:text-white px-4 py-2 rounded-md hover:bg-sb transition duration-300 ease-in-out">
+                <Link
+                  to="/company-login"
+                  className="border border-pb hover:text-white px-4 py-3 rounded-md hover:bg-sb transition duration-300 ease-in-out"
+                >
                   Post a Job
                 </Link>
-                <Link to='/admin-login' className="border border-pb px-4 py-2 rounded-md hover:bg-sb hover:text-white transition duration-300 ease-in-out">
+                <Link
+                  to="/admin-login"
+                  className="border border-pb px-4 py-3 rounded-md hover:bg-sb hover:text-white transition duration-300 ease-in-out"
+                >
                   Admin
                 </Link>
               </>
