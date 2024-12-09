@@ -15,7 +15,8 @@ import DefaultLayout from "../../layout/Dashboardlayout";
 import Alljobs from "../../pages/Jobs/dashboard/Alljobs";
 import Allaluminis from "../../pages/aluminis/dashboard/Allaluminis";
 import Adminprofile from "../../pages/admin/Profile/Adminprofile";
-import Profile from "../../pages/Userauth/settings/profile";
+// import Profile from "../../pages/Userauth/settings/profile";
+import Mainview from "../../pages/Userauth/Userprofile/Mainview";
 
 // Lazy loaded components
 const Home = lazy(() => import("../../pages/home/Home"));
@@ -82,7 +83,7 @@ const router = createBrowserRouter([
       { path: "register-student", element: <StudentRegistrationForm /> },
       { path: "login-users", element: <Signin /> },
       { path: "user_profile/:id", element: <Userprofile /> },
-      { path: "settings", element: <Profile /> },
+      { path: "settings", element: <Mainview /> },
       {
         path: "new-profile",
         element: (

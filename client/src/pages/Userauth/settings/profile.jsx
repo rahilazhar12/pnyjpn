@@ -15,6 +15,7 @@ import useUserData from "../../hooks/useUserData";
 
 const UserProfile = () => {
   const { user, loading, fetchUserData } = useUserData();
+  const [isSaving, setIsSaving] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -66,6 +67,7 @@ const UserProfile = () => {
       if (value) data.append(key, value);
     });
 
+    setIsSaving(true); // Start loader
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/v1/users/edit-user`,
@@ -90,6 +92,8 @@ const UserProfile = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+    } finally {
+      setIsSaving(false); // Stop loader
     }
   };
 
@@ -137,11 +141,7 @@ const UserProfile = () => {
                   </span>
                 </Link>
               </li>
-              <li className="font-bold">
-                
-                  Profile
-                
-              </li>
+              <li className="font-bold">Profile</li>
             </ul>
             <div className="flex items-center gap-4">
               <button
@@ -262,8 +262,37 @@ const UserProfile = () => {
               </Grid>
             </Grid>
             <Box textAlign="center" sx={{ mt: 3 }}>
-              <Button type="submit" variant="contained" color="primary">
-                Save Changes
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={isSaving} // Disable button while saving
+                startIcon={
+                  isSaving && (
+                    <svg
+                      className="animate-spin h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v8H4z"
+                      ></path>
+                    </svg>
+                  )
+                }
+              >
+                {isSaving ? "Saving..." : "Save Changes"}
               </Button>
             </Box>
           </form>

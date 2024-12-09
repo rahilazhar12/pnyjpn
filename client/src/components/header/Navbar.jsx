@@ -66,11 +66,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 lg:px-16 py-4 flex items-center justify-between">
+      <nav className="bg-white shadow-md w-full fixed top-0 z-50">
+        <div className="container mx-auto px-4 lg:px-16  flex items-center justify-between">
           <div className="flex items-center">
             <Link to="/">
-              <img src={logo} alt="Logo" className="w-20" />
+              <img src={logo} alt="Logo" className="w-16" />
             </Link>
             <div className="hidden lg:block">
               <h1 className="text-sm font-bold text-blue-500">Job Finder</h1>
@@ -114,29 +114,29 @@ const Navbar = () => {
               <DropdownUser />
             ) : (
               <>
-                <Button
+                <button
                   onClick={handleUserRegisterClick}
-                  className=" text-white px-4 py-2 rounded-md hover:bg-sb hover:text-white transition duration-300 ease-in-out"
+                  className=" text-white px-4  rounded-md bg-[#46b749] transition duration-300 ease-in-out"
                 >
                   Register
-                </Button>
+                </button>
 
-                <Button
+                <button
                   onClick={handleUserLoginClick}
-                  className="border border-pink-500 hover:text-white px-4 py-2 rounded-md hover:bg-sr transition duration-300 ease-in-out"
+                  className=" text-white px-4 py-1 rounded-md bg-[#337ab7] transition duration-300 ease-in-out"
                 >
                   Login
-                </Button>
+                </button>
 
                 <Link
                   to="/company-login"
-                  className="border border-pb hover:text-white px-4 py-3 rounded-md hover:bg-sb transition duration-300 ease-in-out"
+                  className="text-white px-4 py-1 rounded-md bg-[#233261] transition duration-300 ease-in-out"
                 >
                   Post a Job
                 </Link>
                 <Link
                   to="/admin-login"
-                  className="border border-pb px-4 py-3 rounded-md hover:bg-sb hover:text-white transition duration-300 ease-in-out"
+                  className="px-4 py-1 rounded-md bg-yellow-700  text-white transition duration-300 ease-in-out"
                 >
                   Admin
                 </Link>

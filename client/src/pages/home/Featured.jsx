@@ -112,7 +112,7 @@ const Featured = () => {
             ))}
           </div>
           {/* Browse All Button */}
-          <div className="text-center mt-24">
+          <div className="text-center mt-14">
             <Link to="/all-categories" className="bg-pb px-7 py-3 text-white">
               Browse All Sectors
             </Link>

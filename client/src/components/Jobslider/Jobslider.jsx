@@ -49,7 +49,7 @@ function Jobslider() {
     ],
   };
   return (
-    <div className="slider-container p-5">
+    <div className="slider-container px-4 py-2">
       <div className="flex p-4 justify-center font-bold text-2xl">
         <h1>Recommended Jobs</h1>
       </div>
@@ -59,26 +59,29 @@ function Jobslider() {
             {" "}
             {/* Added px-2 to create horizontal padding */}
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="#">
+              {/* <a href="#">
                 <img
                   className="rounded-t-lg w-32"
                   src="https://www.pnytrainings.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FPNY%20Trainings%20logo.68824f43.png&w=1080&q=75"
                   alt="Noteworthy technology"
                 />
-              </a>
+              </a> */}
               <div className="p-5">
                 <a href="#">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Noteworthy technology acquisitions 2021
                   </h5>
                 </a>
+                <p className="mb-3 text-green-700 font-semibold dark:text-gray-400">
+                  PKR 15,000/month
+                </p>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   Here are the biggest enterprise technology acquisitions of
                   2021 so far, in reverse chronological order.
                 </p>
                 <a
                   href="#"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Read more
                   <svg

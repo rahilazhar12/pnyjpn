@@ -1,24 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSessionStorage } from "../../context/Sessionstorage";
-import useUserData from "../../pages/hooks/useUserData";
 
 const DropdownUser = () => {
-  const { user, loading, fetchUserData } = useUserData();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { logout } = useSessionStorage();
+  const { logout, user } = useSessionStorage();
 
   const logouthandler = () => {
     logout();
     navigate("/");
   };
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  if (loading) return <p>Loading...</p>; // Show loading state
 
   return (
     <div className="relative">

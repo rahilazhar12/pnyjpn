@@ -47,3 +47,78 @@
     opacity: 1;
   }
 }
+
+ul,
+ol {
+  list-style-type: disc; /* Ensures bullets are shown for <ul> */
+  padding-left: 20px; /* Adds indentation for the list */
+  margin-left: 20px; /* Adds space from the left edge */
+}
+
+ol {
+  list-style-type: decimal; /* Ensures numbers are shown for <ol> */
+}
+
+li {
+  margin-bottom: 5px; /* Optional spacing between list items */
+}
+
+.navbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.skills-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.btn-save {
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.skills-list {
+  margin-top: 20px;
+}
+
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+button {
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .skill-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  button {
+    margin: 5px 0;
+  }
+}
+

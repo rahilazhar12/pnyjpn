@@ -92,8 +92,6 @@ const UserRegistration = async (req, res) => {
   }
 };
 
-
-
 const UserLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -151,6 +149,8 @@ const UserLogin = async (req, res) => {
     res.status(200).json({
       message: "Login Success",
       role: role,
+      name: currentUser.name,
+      profilePicture: currentUser.profilePicture,
     });
   } catch (error) {
     console.log("Error in login controller", error.message);

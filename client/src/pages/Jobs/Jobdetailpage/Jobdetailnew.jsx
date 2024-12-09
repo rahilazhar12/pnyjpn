@@ -104,7 +104,7 @@ const JobPage = () => {
       {/* Left Section */}
       <div className="w-full md:w-2/3 bg-white shadow-lg rounded-lg px-6 py-4">
         {/* Sticky Section from Title to Tabs */}
-        <div className="md:sticky top-20 bg-white z-10 border-b border-gray-200">
+        <div className="md:sticky top-12 bg-white  border-b border-gray-200">
           {/* Job Title and Company Logo */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between ">
             <div>
@@ -116,7 +116,7 @@ const JobPage = () => {
                 jobData.companyLogo
               }`}
               alt="Company Logo"
-              className="h-28 w-28 mt-2 sm:mt-0"
+              className="h-28 w-28 block sm:mt-0"
             />
           </div>
 

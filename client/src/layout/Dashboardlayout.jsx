@@ -3,7 +3,7 @@ import Header from "../components/profile/profile";
 import Sidebar from "../pages/dashboard/Sidebar";
 import { Outlet } from "react-router-dom";
 
-const DefaultLayout = ({ children }) => {
+const DefaultLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
