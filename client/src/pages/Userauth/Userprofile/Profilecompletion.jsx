@@ -67,7 +67,7 @@ const ProfileCompletion = () => {
   }, []);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 w-full lg:w-full max-w-sm mx-auto lg:mx-0 static">
+    <div className="bg-white rounded-lg shadow-md p-6 w-full lg:w-full max-w-sm mx-auto lg:mx-0 sticky top-16">
       {loading ? (
         <div className="flex justify-center items-center h-48">
           <svg
@@ -148,7 +148,7 @@ const ProfileCompletion = () => {
 
           {/* Profile Completion Section */}
           <div>
-            <h3 className="text-xl font-semibold mb-4">Profile Completion</h3>
+            <h3 className="text-[18px] font-source-sans font-semibold mb-4">Update your profile for better job recommendations</h3>
             <div className="flex items-center mb-4">
               <div className="w-full bg-gray-300 rounded-full h-2">
                 <div

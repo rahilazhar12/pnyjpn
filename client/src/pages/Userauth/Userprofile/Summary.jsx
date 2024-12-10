@@ -53,7 +53,7 @@ const SummarySection = () => {
       credentials: "include",
       body: JSON.stringify({
         content: editorContent,
-        ...(summaryId ? { summaryId } : { userId: "" }),
+        ...({ summaryId }),
       }),
     })
       .then((response) => response.json())
@@ -105,6 +105,7 @@ const SummarySection = () => {
       return (
         <>
           <div dangerouslySetInnerHTML={{ __html: truncatedSummary }} />
+
           <div className="flex justify-center items-center mt-4 pt-4 border-t border-gray-300">
             <button
               onClick={toggleShowMore}
@@ -121,17 +122,17 @@ const SummarySection = () => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto mt-6">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Summary</h3>
+        <h3 className="text-2xl font-semibold font-source-sans">Summary</h3>
         <button
           onClick={handleEditClick}
-          className="text-blue-500 hover:text-blue-700"
+          className="text-xl font-bold text-blue-500"
         >
-          {isEditing ? "Close" : "Edit"}
+          {isEditing ? "-" : "+"}
         </button>
       </div>
 
       {!isEditing && (
-        <div className="text-sm text-gray-600">{renderSummary()}</div>
+        <div className="text-sm text-gray-600 font-source-sans text-[16px] text-justify">{renderSummary()}</div>
       )}
 
       {isEditing && (

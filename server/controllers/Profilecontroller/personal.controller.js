@@ -238,6 +238,8 @@ exports.getPersonalInfoByUserId = async (req, res) => {
 //   }
 // };
 
+
+
 // PUT: Update personal information
 exports.updatePersonalInfo = async (req, res) => {
   const {
@@ -254,7 +256,9 @@ exports.updatePersonalInfo = async (req, res) => {
   } = req.body;
 
   // Retrieve uploaded file path
-  const profilePicture = req.file ? req.file.path : null;
+  const profilePicture = req.file ? req.file.path.replace(/\\/g, "/") : null; // Normalize path
+
+  console.log("Uploaded profile picture path:", profilePicture);
 
   if (!personalInfoId) {
     return res.status(400).json({
@@ -264,6 +268,7 @@ exports.updatePersonalInfo = async (req, res) => {
   }
 
   try {
+    // Fetch personal information by ID
     const personalInfo = await PersonalInfo.findById(personalInfoId);
     if (!personalInfo) {
       return res.status(404).json({
@@ -272,44 +277,37 @@ exports.updatePersonalInfo = async (req, res) => {
       });
     }
 
-    // If a new profile picture is uploaded, delete the old one
-    if (profilePicture && personalInfo.profilePicture) {
-      // Construct the absolute path to the old profile picture
-      const oldProfilePicturePath = path.join(
-        __dirname,
-        "..",
-        "..",
-        personalInfo.profilePicture
-      );
+   
 
-      // Check if the file exists before attempting to delete
-      fs.access(oldProfilePicturePath, fs.constants.F_OK, (err) => {
-        if (!err) {
-          fs.unlink(oldProfilePicturePath, (err) => {
-            if (err) {
-              console.error(
-                `Failed to delete old profile picture: ${err.message}`
-              );
-              // Optionally, you can choose to send an error response here
-              // return res.status(500).json({
-              //   success: false,
-              //   message: "Failed to delete old profile picture",
-              // });
-            } else {
-              console.log(
-                `Old profile picture deleted: ${oldProfilePicturePath}`
-              );
-            }
-          });
-        } else {
-          console.warn(
-            `Old profile picture not found: ${oldProfilePicturePath}`
-          );
-        }
-      });
+    // Handle profile picture update
+    if (profilePicture) {
+      if (personalInfo.profilePicture) {
+        // Delete old profile picture if it exists
+        const oldProfilePicturePath = path.join(
+          __dirname,
+          "..",
+          "..",
+          personalInfo.profilePicture
+        );
 
-      // Update the profile picture path with the new one
+        fs.access(oldProfilePicturePath, fs.constants.F_OK, (err) => {
+          if (!err) {
+            fs.unlink(oldProfilePicturePath, (err) => {
+              if (err) {
+                console.error(`Failed to delete old profile picture: ${err.message}`);
+              } else {
+                console.log(`Old profile picture deleted: ${oldProfilePicturePath}`);
+              }
+            });
+          } else {
+            console.warn(`Old profile picture not found: ${oldProfilePicturePath}`);
+          }
+        });
+      }
+
+      // Update profile picture path
       personalInfo.profilePicture = profilePicture;
+      console.log("Updated profilePicture path:", personalInfo.profilePicture);
     }
 
     // Update other fields if provided
@@ -323,17 +321,29 @@ exports.updatePersonalInfo = async (req, res) => {
     personalInfo.careerLevel = careerLevel || personalInfo.careerLevel;
     personalInfo.expectedSalary = expectedSalary || personalInfo.expectedSalary;
 
-    await personalInfo.save();
-    res.status(200).json({
-      success: true,
-      message: "Personal information updated successfully",
-      personalInfo,
-    });
+    // Save updated personal info
+    try {
+      await personalInfo.save();
+      return res.status(200).json({
+        success: true,
+        message: "Personal information updated successfully",
+        personalInfo,
+      });
+    } catch (saveError) {
+      console.error("Error saving personal info:", saveError);
+      return res.status(500).json({
+        success: false,
+        message: "Failed to save updated personal information",
+        error: saveError.message,
+      });
+    }
   } catch (error) {
-    res.status(500).json({
+    console.error("Error during update:", error);
+    return res.status(500).json({
       success: false,
       message: "Failed to update personal information",
       error: error.message,
     });
   }
 };
+

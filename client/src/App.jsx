@@ -8,7 +8,6 @@ const App = () => {
   return (
     <>
       <Navbar />
-      {/* <Mainview /> */}
       <Outlet />
       <Footer />
     </>

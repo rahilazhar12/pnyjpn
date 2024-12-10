@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { IoIosLock } from "react-icons/io";
 
 const Personal = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -209,7 +210,7 @@ const Personal = () => {
       {/* Header Section */}
       <div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold text-gray-700">
+          <h2 className="text-2xl font-600 text-black font-source-sans">
             Personal Information
           </h2>
           {/* Show Add or Edit button based on existence of personalInfoId */}
@@ -235,17 +236,17 @@ const Personal = () => {
           <div className="flex items-center mt-6 space-x-6">
             <div className="relative w-32 h-32 p-2">
               {/* Circular Progress */}
-              <CircularProgressbar
-                value={completionPercentage} // Dynamic progress value
-                styles={buildStyles({
-                  textColor: "black", // Text color for percentage text
-                  pathColor: "green", // Progress bar color
-                  trailColor: "#d6d6d6", // Background trail color
-                  strokeLinecap: "butt", // Make progress bar ends square (or rounded)
-                })}
-                strokeWidth={4} // This will reduce the thickness of both the progress bar and trail
-                className="absolute inset-0"
-              />
+                  {/* <CircularProgressbar
+                    value={completionPercentage} // Dynamic progress value
+                    styles={buildStyles({
+                      textColor: "black", // Text color for percentage text
+                      pathColor: "green", // Progress bar color
+                      trailColor: "#d6d6d6", // Background trail color
+                      strokeLinecap: "butt", // Make progress bar ends square (or rounded)
+                    })}
+                    strokeWidth={4} // This will reduce the thickness of both the progress bar and trail
+                    className="absolute inset-0"
+                  /> */}
 
               {/* Profile Picture */}
               <img
@@ -256,13 +257,16 @@ const Personal = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-gray-800">
+              <h3 className="text-2xl  text-gray-800 font-source-sans font-600">
                 {formData.name || "N/A"}
+                
               </h3>
-              <p className="text-gray-600 text-sm">{formData.email || "N/A"}</p>
-              <p className="text-gray-600 text-sm">
-                {formData.mobile || "N/A"}
-              </p>
+              <div className="text-[#212121] text-[16px] font-source-sans font-400 flex justify-center items-center gap-1">
+                {formData.email || "N/A"} <IoIosLock />
+              </div>
+              <div className="text-[#212121] text-[16px] font-source-sans font-400 flex  items-center gap-1">
+                {formData.mobile || "N/A"} <IoIosLock />
+              </div>
             </div>
           </div>
         )}

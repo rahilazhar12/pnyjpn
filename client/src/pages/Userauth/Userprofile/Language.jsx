@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
 const proficiencyOptions = [
-  { value: "beginner", label: "Beginner" },
-  { value: "intermediate", label: "Intermediate" },
-  { value: "expert", label: "Expert" },
+  { value: "Beginner", label: "Beginner" },
+  { value: "Intermediate", label: "Intermediate" },
+  { value: "Expert", label: "Expert" },
 ];
 
 const countryOptions = [
@@ -21,12 +21,12 @@ const countryOptions = [
 ];
 
 const Language = () => {
-  const [languages, setLanguages] = useState([]); // Ensure it's an array
+  const [languages, setLanguages] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedProficiency, setSelectedProficiency] = useState(null);
   const [editingLanguage, setEditingLanguage] = useState(null);
+  const [isFormVisible, setIsFormVisible] = useState(false); // New state for toggling form visibility
 
-  // Fetch user's languages
   const fetchLanguages = async () => {
     try {
       const response = await fetch(
@@ -39,16 +39,14 @@ const Language = () => {
         }
       );
       const data = await response.json();
-
-      // Ensure data is an array before setting state
       if (Array.isArray(data)) {
         setLanguages(data);
       } else {
-        setLanguages([]); // Fallback to an empty array if the data isn't in the expected format
+        setLanguages([]);
       }
     } catch (error) {
       console.error("Error fetching languages:", error);
-      setLanguages([]); // In case of error, ensure the state is an empty array
+      setLanguages([]);
     }
   };
 
@@ -56,20 +54,16 @@ const Language = () => {
     fetchLanguages();
   }, []);
 
-  // Handle country change
   const handleCountryChange = (selectedOption) => {
     setSelectedCountry(selectedOption);
   };
 
-  // Handle proficiency change
   const handleProficiencyChange = (selectedOption) => {
     setSelectedProficiency(selectedOption);
   };
 
-  // Handle form submission for adding new language
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!selectedCountry || !selectedProficiency) {
       alert("Please select both country and proficiency.");
       return;
@@ -80,7 +74,6 @@ const Language = () => {
       proficiency: selectedProficiency.value,
     };
 
-    // Wrap the newLanguage object inside an array before sending it
     const languagesToAdd = [newLanguage];
 
     try {
@@ -92,7 +85,7 @@ const Language = () => {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify({ languages: languagesToAdd }), // Sending the wrapped array
+          body: JSON.stringify({ languages: languagesToAdd }),
         }
       );
 
@@ -100,9 +93,8 @@ const Language = () => {
         throw new Error("Failed to add language.");
       }
 
-      // Re-fetch the updated list of languages from the server
       fetchLanguages();
-      window.location.reload();
+      setIsFormVisible(false); // Hide the form after submission
       setSelectedCountry(null);
       setSelectedProficiency(null);
     } catch (error) {
@@ -110,7 +102,6 @@ const Language = () => {
     }
   };
 
-  // Handle edit button click
   const handleEditClick = (language) => {
     setEditingLanguage(language);
     setSelectedCountry(
@@ -119,12 +110,11 @@ const Language = () => {
     setSelectedProficiency(
       proficiencyOptions.find((opt) => opt.value === language.proficiency)
     );
+    setIsFormVisible(true)
   };
 
-  // Handle save changes
   const handleSave = async (e) => {
     e.preventDefault();
-
     if (!selectedCountry || !selectedProficiency || !editingLanguage) {
       alert("Please select both country and proficiency.");
       return;
@@ -137,14 +127,16 @@ const Language = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/profile/languages/${editingLanguage._id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/profile/languages/${
+          editingLanguage._id
+        }`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify(updatedLanguage), // Send updated language data
+          body: JSON.stringify(updatedLanguage),
         }
       );
 
@@ -152,12 +144,10 @@ const Language = () => {
         throw new Error("Failed to update language.");
       }
 
-      // Re-fetch the updated list of languages from the server
       fetchLanguages();
-
-      setEditingLanguage(null); // Reset the editing state
-      setSelectedCountry(null); // Reset the selected country
-      setSelectedProficiency(null); // Reset the selected proficiency
+      setEditingLanguage(null);
+      setSelectedCountry(null);
+      setSelectedProficiency(null);
     } catch (error) {
       console.error("Error updating language:", error);
     }
@@ -180,64 +170,82 @@ const Language = () => {
         throw new Error("Failed to delete language.");
       }
 
-      // Re-fetch the updated list of languages from the server
       fetchLanguages();
     } catch (error) {
       console.error("Error deleting language:", error);
     }
   };
 
+  // Toggle form visibility
+  const toggleFormVisibility = () => {
+    setIsFormVisible(!isFormVisible);
+  };
+
   return (
     <>
-      <div className="bg-white rounded-lg shadow-md p-8 max-w-3xl mx-auto mt-6">
-        <h1 className="text-2xl font-semibold mb-6">
-          {editingLanguage ? "Edit Language" : "Add Language"}
+      <div className="bg-white rounded-lg shadow-md p-5 max-w-3xl mx-auto mt-6">
+        <h1 className="text-2xl font-semibold ">
+          {/* {editingLanguage ? "Edit Language" : "Add Language"} */}
         </h1>
 
-        <form onSubmit={editingLanguage ? handleSave : handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Select a Country <span className="text-red-500">*</span>
-            </label>
-            <Select
-              options={countryOptions}
-              value={selectedCountry}
-              onChange={handleCountryChange}
-              placeholder="Choose a country..."
-              className="basic-single"
-              classNamePrefix="select"
-              isSearchable
-              required
-            />
-          </div>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-2xl font-source-sans font-semibold">Languages</h3>
+          <button
+            onClick={toggleFormVisibility}
+            className="text-blue-500 hover:text-blue-700"
+          >
+            <span className="text-xl font-bold text-blue-500">
+              {isFormVisible ? "-" : "+"}
+            </span>
+          </button>
+        </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Proficiency <span className="text-red-500">*</span>
-            </label>
-            <Select
-              options={proficiencyOptions}
-              value={selectedProficiency}
-              onChange={handleProficiencyChange}
-              placeholder="Select proficiency..."
-              className="basic-single"
-              classNamePrefix="select"
-              required
-            />
-          </div>
+        {isFormVisible && ( // Show form only if isFormVisible is true
+          <form onSubmit={editingLanguage ? handleSave : handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Select a Country <span className="text-red-500">*</span>
+              </label>
+              <Select
+                options={countryOptions}
+                value={selectedCountry}
+                onChange={handleCountryChange}
+                placeholder="Choose a country..."
+                className="basic-single"
+                classNamePrefix="select"
+                isSearchable
+                required
+              />
+            </div>
 
-          <div className="mb-4">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded"
-            >
-              {editingLanguage ? "Save Changes" : "Add Language"}
-            </button>
-          </div>
-        </form>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Proficiency <span className="text-red-500">*</span>
+              </label>
+              <Select
+                options={proficiencyOptions}
+                value={selectedProficiency}
+                onChange={handleProficiencyChange}
+                placeholder="Select proficiency..."
+                className="basic-single"
+                classNamePrefix="select"
+                required
+              />
+            </div>
+
+            <div className="mb-4 flex justify-end">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white py-2 px-4 rounded"
+              >
+                {editingLanguage ? "Save Changes" : "Add Language"}
+              </button>
+            </div>
+          </form>
+        )}
 
         <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-4">Your Languages</h2>
+          {/* <h2 className="text-xl font-semibold mb-4">Your Languages</h2> */}
           {languages.length === 0 ? (
             <p>No languages added yet.</p>
           ) : (
@@ -247,24 +255,20 @@ const Language = () => {
                   key={index}
                   className="flex items-center mb-2 justify-between"
                 >
-                  <span>
-                    {lang.country} - {lang.proficiency}
+                  <span className="text-base font-source-sans">
+                    {lang.country} ({lang.proficiency})
                   </span>
 
-                  {/* Edit and Delete Buttons */}
                   <div className="flex">
-                    {/* Edit Button */}
                     <button
                       onClick={() => handleEditClick(lang)}
-                      className="text-blue-500 hover:text-blue-700 mr-2" // Add small margin only to the right
+                      className="text-blue-500 hover:text-blue-700 mr-2"
                     >
                       Edit
                     </button>
 
-                    {/* Delete Button */}
                     <button
-                      onClick={() => handleDeleteClick(lang._id)} // Ensure to pass the correct language ID for deletion
-                      className="text-red-500 hover:text-red-700"
+                      onClick={() => handleDeleteClick(lang._id)}
                     >
                       Delete
                     </button>

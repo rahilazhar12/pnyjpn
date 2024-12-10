@@ -14,7 +14,7 @@ const LanguageSchema = new mongoose.Schema({
     },
     proficiency: {
       type: String,
-      enum: ['beginner', 'intermediate', 'expert'],
+      enum: ['Beginner', 'Intermediate', 'Expert'],
       required: true,
     },
   }],

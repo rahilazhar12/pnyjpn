@@ -178,7 +178,9 @@ const JobPreferences = () => {
       if (jobPreferences && jobPreferences._id) {
         // Update existing
         response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/v1/profile/jobpref/${jobPreferences._id}`,
+          `${import.meta.env.VITE_API_URL}/api/v1/profile/jobpref/${
+            jobPreferences._id
+          }`,
           {
             method: "PUT",
             headers: {
@@ -190,14 +192,17 @@ const JobPreferences = () => {
         );
       } else {
         // Create new
-        response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/profile/jobpref`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // Include cookies if your API uses them
-          body: JSON.stringify(payload),
-        });
+        response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/v1/profile/jobpref`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include", // Include cookies if your API uses them
+            body: JSON.stringify(payload),
+          }
+        );
       }
 
       if (!response.ok) {
@@ -212,7 +217,7 @@ const JobPreferences = () => {
           ? "Job preferences updated successfully!"
           : "Job preferences saved successfully!"
       );
-      window.location.reload()
+      window.location.reload();
       setIsEditing(false);
 
       // Clear notification after 3 seconds
@@ -265,28 +270,7 @@ const JobPreferences = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <svg
-          className="animate-spin h-8 w-8 text-blue-500"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          ></circle>
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8v8H4z"
-          ></path>
-        </svg>
-      </div>
+      <div className="flex justify-center items-center h-64">Loading...</div>
     );
   }
 
@@ -300,9 +284,9 @@ const JobPreferences = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-8 max-w-2xl mx-auto mt-10">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Job Preferences</h2>
+    <div className="bg-white rounded-lg shadow-md p-5 max-w-2xl mx-auto mt-10">
+      <div className="flex justify-between items-center ">
+        <h2 className="text-2xl font-semibold text-black font-source-sans">Job Preferences</h2>
         {!isEditing && !jobPreferences && (
           <button
             onClick={handleEdit}
@@ -348,26 +332,22 @@ const JobPreferences = () => {
       {!isEditing && jobPreferences ? (
         // Display existing job preferences
         <div className="space-y-4">
-          <p className="text-gray-600">
-            Help us match you with your next job.
-          </p>
+          <p className="text-black font-source-sans text-base">Help us match you with your next job</p>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col">
-              <h3 className="text-lg font-semibold text-gray-700">
+              <h3 className="text-lg font-semibold text-black font-source-sans  ">
                 Desired Job Title
               </h3>
-              <p className="text-gray-600 mb-4">{jobPreferences.title}</p>
+              <p className="text-black mb-3 font-source-sans">{jobPreferences.title}</p>
 
-              <h3 className="text-lg font-semibold text-gray-700">
+              <h3 className="text-lg font-semibold text-black font-source-sans">
                 Desired Salary
               </h3>
-              <p className="text-gray-600 mb-4">
-                {jobPreferences.salary}
-              </p>
-              <h3 className="text-lg font-semibold text-gray-700">
+              <p className="text-black mb-3 font-source-sans">{jobPreferences.salary}</p>
+              <h3 className="text-lg font-semibold text-black">
                 Desired Skills
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-black mb-3 font-source-sans">
                 {jobPreferences.skills.join(", ")}
               </p>
             </div>

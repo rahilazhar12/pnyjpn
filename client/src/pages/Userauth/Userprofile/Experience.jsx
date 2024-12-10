@@ -99,7 +99,9 @@ const Experience = () => {
     try {
       if (editingRecord) {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/v1/profile/experience/${editingRecord._id}`,
+          `${import.meta.env.VITE_API_URL}/api/v1/profile/experience/${
+            editingRecord._id
+          }`,
           {
             method: "PUT",
             headers: {
@@ -167,7 +169,7 @@ const Experience = () => {
           });
           fetchExperienceRecords();
           setShowForm(false);
-          window.location.reload()
+          window.location.reload();
         } else {
           alert(data.message || "Error saving experience record");
         }
@@ -202,7 +204,9 @@ const Experience = () => {
   const handleDelete = async (experienceRecordId) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/profile/experience/${experienceRecordId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/v1/profile/experience/${experienceRecordId}`,
         {
           method: "DELETE",
           headers: {
@@ -218,7 +222,7 @@ const Experience = () => {
         );
         alert("Record deleted successfully");
         fetchExperienceRecords();
-        window.location.reload()
+        window.location.reload();
       } else {
         throw new Error("Failed to delete record");
       }
@@ -234,7 +238,7 @@ const Experience = () => {
       ref={formRef}
     >
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Experience</h3>
+        <h3 className="text-2xl font-source-sans font-semibold">Experience</h3>
         <button
           onClick={toggleForm}
           className="text-blue-500 hover:text-blue-700"
@@ -440,26 +444,31 @@ const Experience = () => {
         <div>
           <div className="space-y-4">
             {displayedRecords.map((record, index) => (
-              <div
-                key={index}
-                className="p-4 mb-4 border border-gray-300 rounded-lg shadow-sm"
-              >
-                <h4 className="font-semibold text-lg">{record.degreeTitle}</h4>
-                <p className="text-black font-bold">
+              <div key={index}>
+                <p className="text-black font-semibold font-source-sans text-[16px]">
                   {record.jobTitle}
                 </p>
-                <p className="text-black">
-                  {record.company}
+                <p className="text-black font-source-sans">{record.company}</p>
+                <p className="text-black font-source-sans">
+                  {record.startMonth} {record.startYear} - {record.endMonth}{" "}
+                  {record.endYear} | {record.location}
                 </p>
-                <p className="text-black">{record.startMonth} {record.startYear} - {record.endMonth} {record.endYear} | {record.location}</p>
-                <p dangerouslySetInnerHTML={{ __html: record.description}} />
-                <button
-                  onClick={() => handleEdit(record)}
-                  className="mt-2 text-blue-500 hover:text-blue-700"
-                >
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(record._id)}>Delete</button>
+                <p
+                  className="font-source-sans text-justify mt-3"
+                  dangerouslySetInnerHTML={{ __html: record.description }}
+                />
+                <div className="flex mt-4 justify-center max-sm:gap-3">
+                  <button
+                    onClick={() => handleEdit(record)}
+                    className=" text-blue-500 hover:text-blue-700"
+                  >
+                    {" "}
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(record._id)}>
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>

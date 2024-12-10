@@ -83,7 +83,9 @@ const Education = () => {
     try {
       if (editingRecord) {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/v1/profile/education/${editingRecord._id}`,
+          `${import.meta.env.VITE_API_URL}/api/v1/profile/education/${
+            editingRecord._id
+          }`,
           {
             method: "PUT",
             headers: {
@@ -180,7 +182,9 @@ const Education = () => {
     try {
       // Sending DELETE request to the server using fetch
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/profile/education/${educationRecordId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/v1/profile/education/${educationRecordId}`,
         {
           method: "DELETE",
           headers: {
@@ -197,7 +201,7 @@ const Education = () => {
         );
         alert("Record deleted successfully");
         fetchEducationRecords();
-        window.location.reload()
+        window.location.reload();
       } else {
         throw new Error("Failed to delete record");
       }
@@ -212,7 +216,7 @@ const Education = () => {
       {/* Toggle button */}
 
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Education</h3>
+        <h3 className="text-2xl font-semibold font-source-sans">Education</h3>
         <button
           onClick={toggleForm}
           className="text-blue-500 hover:text-blue-700"
@@ -341,20 +345,25 @@ const Education = () => {
           displayedRecords.map((record, index) => (
             <div
               key={record._id || index} // It's better to use a unique identifier like _id
-              className="p-4 mb-4 border border-gray-300 rounded-lg shadow-sm"
+              className="mb-4"
             >
-              <h4 className="font-semibold text-lg">{record.degreeTitle}</h4>
-              <p className="text-gray-600">Institution: {record.institution}</p>
-              <p className="text-gray-600">
-                Field of Study: {record.fieldOfStudy}
+              <h4 className="font-semibold font-source-sans text-base">
+                {record.institution}, {record.location}
+              </h4>
+
+              <p className="text-black font-source-sans text-base">
+                {record.degreeTitle}
               </p>
-              <p className="text-gray-600">Location: {record.location}</p>
-              <p className="text-gray-600">Industry: {record.Industry}</p>
-              <p className="text-gray-600">
-                Completion Year: {record.completionYear}
+              <p className="text-black font-source-sans text-base">
+                {record.fieldOfStudy}, {record.fieldOfStudy}
               </p>
-              <p className="text-gray-600">CGPA: {record.cgpa}</p>
-              <div className="mt-2 flex space-x-4">
+            
+             
+              <p className="text-black text-base font-source-sans">
+                {record.completionYear}
+              </p>
+
+              <div className="mt-2 flex space-x-4 justify-center">
                 <button
                   onClick={() => handleEdit(record)}
                   className="text-blue-500 hover:text-blue-700"
@@ -362,9 +371,7 @@ const Education = () => {
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(record._id)}
-                  className="text-red-500 hover:text-red-700"
-                >
+                  onClick={() => handleDelete(record._id)}>
                   Delete
                 </button>
               </div>

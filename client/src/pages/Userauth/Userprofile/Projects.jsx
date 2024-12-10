@@ -255,17 +255,17 @@ const Projects = () => {
 
   return (
     <div className="mt-6" ref={formRef}>
-      <div className="bg-white rounded-lg shadow-md p-8 max-w-3xl mx-auto">
+      <div className="bg-white rounded-lg shadow-md p-5 max-w-3xl mx-auto">
         <h2 className="text-xl font-bold mb-6 text-center">
           {/* {isEditing ? "Edit Project" : "Add New Project"} */}
         </h2>
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-2xl font-bold text-gray-800">Projects</h3>
+          <h3 className="text-2xl font-source-sans font-semibold">Projects</h3>
           <button
             onClick={toggleFormVisibility}
             className="text-blue-500 hover:text-blue-700"
           >
-            <span className="text-xl font-bold">
+            <span className="text-xl font-bold text-blue-500">
               {isFormVisible ? "-" : "+"} {/* "+" to show form, "-" to hide */}
             </span>
           </button>
@@ -505,12 +505,10 @@ const Projects = () => {
           </form>
         )}
 
-        {/* Divider */}
-        <div className="my-8 border-t"></div>
 
         {/* Display Fetched Projects */}
         <div>
-          <h3 className="text-2xl font-semibold mb-6">Your Projects</h3>
+          {/* <h3 className="text-2xl font-semibold mb-6">Your Projects</h3> */}
           {fetchedProjects.length > 0 ? (
             <div className="space-y-6 list-none">
               {fetchedProjects.map((project) => (
@@ -520,58 +518,60 @@ const Projects = () => {
                 >
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                     {/* Project Details */}
-                    <div className="flex items-center space-x-4">
-                      {project.image && (
+                    <div className="flex flex-col space-y-3">
+                      {/* {project.image && (
                         <img
                           src={project.image}
                           alt={project.name}
                           className="h-20 w-20 object-cover rounded-md"
                         />
-                      )}
+                      )} */}
                       <div>
-                        <h4 className="text-xl font-bold">{project.name}</h4>
-                        <p className="text-sm text-gray-600">
-                          {project.description}
-                        </p>
-                        <p className="text-sm text-blue-600">
+                        <h4 className="text-base font-source-sans font-semibold">{project.name}</h4>
+                        
+                        <p className="text-base font-source-sans  hover:text-blue-800 text-blue-600">
                           <a
                             href={project.projectUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            Visit Project
+                            {project.projectUrl}
                           </a>
                         </p>
-                        <p className="text-sm text-gray-500">
+                        {/* <p className="text-sm text-gray-500">
                           {project.startMonth} {project.startYear} -{" "}
                           {project.isOngoing
                             ? "Present"
                             : `${project.endMonth} ${project.endYear}`}
-                        </p>
-                        {project.association && (
+                        </p> */}
+                        {/* {project.association && (
                           <p className="text-sm text-gray-500">
                             Associated with: {project.association}
                           </p>
-                        )}
+                        )} */}
+                        <p className="text-base text-black text-justify mt-3 font-source-sans">
+                          {project.description}
+                        </p>
                       </div>
                     </div>
 
+                  </div>
+                  
                     {/* Action Buttons */}
-                    <div className="mt-4 md:mt-0 flex space-x-2 gap-3">
+                    <div className="mt-4 md:mt-4 flex justify-center">
                       <button
                         onClick={() => handleEditClick(project)}
-                        className="text-black rounded-md "
+                        className="text-blue-500 rounded-md "
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDeleteClick(project)}
-                        className="text-red-500 rounded-md"
+                        
                       >
                         Delete
                       </button>
                     </div>
-                  </div>
                 </div>
               ))}
             </div>

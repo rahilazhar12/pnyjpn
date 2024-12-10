@@ -1,5 +1,6 @@
 const Summary = require("../../models/Newprofile/summary");
 const User = require("../../models/user.model");
+const PNYAlumniSchema = require("../../models/pnyalumini");
 
 exports.saveSummary = async (req, res) => {
   const userId = req.user.id;
@@ -12,12 +13,15 @@ exports.saveSummary = async (req, res) => {
   }
 
   try {
-    // Check if the user exists
-    const user = await User.findById(userId);
-    if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+    // Check if the user exists in either User or PNYAlumniSchema
+    const alumni = await PNYAlumniSchema.findOne({ _id: userId });
+    const user = await User.findById({ _id: userId });
+
+    if (!user && !alumni) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found in either User or PNYAlumniSchema",
+      });
     }
 
     // Create a new summary for the user
@@ -39,7 +43,7 @@ exports.saveSummary = async (req, res) => {
 };
 
 exports.getSummariesByUserId = async (req, res) => {
-  const  userId  = req.user.id;
+  const userId = req.user.id;
 
   try {
     const summaries = await Summary.find({ userId });
